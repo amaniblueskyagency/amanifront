@@ -1,0 +1,843 @@
+{
+  "version": 5,
+  "properties": {
+    "amani-p001": {
+      "folder": "property-001",
+      "gallery_verified": true,
+      "photos": [
+        {
+          "src": "img/rental/property-001/exterior/property-001-wakiinama-heights-exterior-001.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "5a6680d94617e70c1fb000edb675eb3c2d5da68b532dfd28bd57434cb19413c9"
+        },
+        {
+          "src": "img/rental/property-001/exterior/property-001-wakiinama-heights-exterior-002.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "e274a3377f2d1cb8f574bb09a5bb6c83aca64fcf918d3f53a653080d7c4a818a"
+        },
+        {
+          "src": "img/rental/property-001/exterior/property-001-wakiinama-heights-exterior-003.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "d3cac9439a34c30b0e574269e3064a31d4ef105f5a13da97161117a7d48a79b4"
+        },
+        {
+          "src": "img/rental/property-001/exterior/property-001-wakiinama-heights-exterior-004.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "e90a2fb0ca374cf4814b2584c9a1814ccd9a7de53eca72670971cf05891c611e"
+        },
+        {
+          "src": "img/rental/property-001/corridors/property-001-wakiinama-heights-corridors-001.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "9187aa4331e7f70fddb75c3cbf1a7374da94e87353cc93873eaeaca6830a9107"
+        },
+        {
+          "src": "img/rental/property-001/corridors/property-001-wakiinama-heights-corridors-002.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "fbce822527e96b0634c45c2efb6466140d722d9bd89c493e97c01ee6978ca123"
+        },
+        {
+          "src": "img/rental/property-001/corridors/property-001-wakiinama-heights-corridors-003.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "22222895cb3e575bae658e425c82f4f0257f5a5bc09547d3d8b92e57c5ec6d5e"
+        },
+        {
+          "src": "img/rental/property-001/corridors/property-001-wakiinama-heights-corridors-004.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "6bbf8af95e91e1b932e5468c9495b0901ed8a8828fd7397a3c815706eaf43ead"
+        },
+        {
+          "src": "img/rental/property-001/corridors/property-001-wakiinama-heights-corridors-005.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "4f97326b5e5b570f1aa45b259e1f396949c5f20b91974a9dd760368478224ad2"
+        },
+        {
+          "src": "img/rental/property-001/corridors/property-001-wakiinama-heights-corridors-006.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "8aeecc8ba156410e70efb72910cf3d0b68687e1ac4a6a47475dafa7ef67e1e71"
+        }
+      ]
+    },
+    "amani-p002": {
+      "folder": "property-002",
+      "gallery_verified": true,
+      "photos": [
+        {
+          "src": "img/rental/property-002/exterior/property-002-wakiinama-corner-makongeni-exterior-001.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "7c236b63597f33a7ea8060902dc5dd263c777c5f17e775db069ef872d29b4866"
+        },
+        {
+          "src": "img/rental/property-002/exterior/property-002-wakiinama-corner-makongeni-exterior-002.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "574aafef485771df275d1624a85a85fa1cadc1077ae2a374e022634cf49ce915"
+        },
+        {
+          "src": "img/rental/property-002/exterior/property-002-wakiinama-corner-makongeni-exterior-003.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "0d7c3531923112081be91c06fe6c63847addce68010b745cc5e94a301b611f71"
+        },
+        {
+          "src": "img/rental/property-002/exterior/property-002-wakiinama-corner-makongeni-exterior-004.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "07afb7912479ce2b375ac5925a80129f3b15697fb6f9588f8ede2c9d25077d2a"
+        },
+        {
+          "src": "img/rental/property-002/corridors/property-002-wakiinama-corner-makongeni-corridors-001.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "8dfadfc9e4ab2ab82ab811a2dec017de83c5a5918ff0cccc24948410d77fc6ff"
+        },
+        {
+          "src": "img/rental/property-002/corridors/property-002-wakiinama-corner-makongeni-corridors-002.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "e973fd3bbb46f53d3f48d7c79b3e71d49b357ee84f2eb660fb9b691bebce178c"
+        },
+        {
+          "src": "img/rental/property-002/corridors/property-002-wakiinama-corner-makongeni-corridors-003.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "6501c584d4f2589a330bffc455d56ef9da3b58cac42db96c0a18da80ec0eacb6"
+        },
+        {
+          "src": "img/rental/property-002/corridors/property-002-wakiinama-corner-makongeni-corridors-004.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "701597aaf2666a168922e44a78b39902bea3cb25852dc9233cd3cf32232e381b"
+        },
+        {
+          "src": "img/rental/property-002/kitchen/property-002-wakiinama-corner-makongeni-kitchen-001.webp",
+          "category": "Kitchen",
+          "unit_type": "",
+          "sha256": "7052fc2607667d9df480185f48cc4d47bf9b426fd69b05b8a9908c1d7e78446d"
+        }
+      ]
+    },
+    "amani-p003": {
+      "folder": "property-003",
+      "gallery_verified": true,
+      "photos": [
+        {
+          "src": "img/rental/property-003/exterior/property-003-wakiinama-blessing-exterior-001.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "ed0b40a586601eabaf81515f15b826fa0e7be130820924f4e563fc919cacd8d4"
+        },
+        {
+          "src": "img/rental/property-003/exterior/property-003-wakiinama-blessing-exterior-002.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "8b15d6132cef00a11b2650f8850ea41967a9ecdc48032951df6043c0a0f91932"
+        },
+        {
+          "src": "img/rental/property-003/exterior/property-003-wakiinama-blessing-exterior-003.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "ada7488e6e4d8422e644b3e506b07d187ff6a1931f530ea4bbe196865590964e"
+        },
+        {
+          "src": "img/rental/property-003/corridors/property-003-wakiinama-blessing-corridors-001.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "57cf6c6f673cdbb2a77089d44bbca17e9bcbf130dab8dbecb7eb99e18dde2651"
+        },
+        {
+          "src": "img/rental/property-003/corridors/property-003-wakiinama-blessing-corridors-002.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "cd640ad4d776a65081d5b667e91298c01fd979b63e54303fd5c64983d2db51c2"
+        },
+        {
+          "src": "img/rental/property-003/corridors/property-003-wakiinama-blessing-corridors-003.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "5fcbce5fee9954f379865bcb0003b1791d39d6dec8a2e196bb7e30e686f2d4c3"
+        },
+        {
+          "src": "img/rental/property-003/corridors/property-003-wakiinama-blessing-corridors-004.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "0bef0d20256c75b28849767fcd54e12eb5f24c9c0de93392e6da43511feb7dac"
+        }
+      ]
+    },
+    "amani-p004": {
+      "folder": "property-004",
+      "gallery_verified": true,
+      "photos": [
+        {
+          "src": "img/rental/property-004/exterior/property-004-exterior-001.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "cc8860d6fbde0348efe18da5c5520703ad1ba0a9072bcd4fb709eac5d4944b77"
+        },
+        {
+          "src": "img/rental/property-004/exterior/property-004-exterior-002.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "53666deae8fdcc785126f9b558810f3b58ac25627622a7fa373ee1d2e8994ef4"
+        },
+        {
+          "src": "img/rental/property-004/exterior/property-004-exterior-003.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "21e7c9bfeb0124d3e06f67983f3e7b07fd33ef348a7eb19e94bab397189227f0"
+        },
+        {
+          "src": "img/rental/property-004/exterior/property-004-exterior-004.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "805c14c5e2d11520241e394ae31d628c7fe3f322ccfce89e709a5239f1d87ffd"
+        },
+        {
+          "src": "img/rental/property-004/exterior/property-004-exterior-005.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "9b11852b05b153c41db43d7913bb97248100ddc681b70c8adc1f9cccaf6e01a0"
+        },
+        {
+          "src": "img/rental/property-004/exterior/property-004-exterior-006.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "b52ab51f0380a3accb71bb266a91b5a40980342cbea4451e072c3800614d9586"
+        },
+        {
+          "src": "img/rental/property-004/exterior/property-004-exterior-007.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "973b2d016226cc7762e754574bbca4e586a148bdac90c553b9e47ee9b8ddcb71"
+        },
+        {
+          "src": "img/rental/property-004/bathrooms/propert-004-muhinja-interior-bathrooms-001.webp",
+          "category": "Bathrooms",
+          "unit_type": "",
+          "sha256": "ff9e49deb454ccd2df3be895b85eb89f56e742565168b3a88b17db265eac8a73"
+        },
+        {
+          "src": "img/rental/property-004/bathrooms/propert-004-muhinja-interior-bathrooms-002.webp",
+          "category": "Bathrooms",
+          "unit_type": "",
+          "sha256": "9248fcf677137d56aaaab6727521b7cd3340bf7465b188fb1a20a22e59f19fb7"
+        },
+        {
+          "src": "img/rental/property-004/bathrooms/property-004-bathrooms-001.webp",
+          "category": "Bathrooms",
+          "unit_type": "",
+          "sha256": "159efc79f07b6964d836534844f41bffd3c3761eef089d6207826a583b9db6a1"
+        },
+        {
+          "src": "img/rental/property-004/bathrooms/property-004-bathrooms-002.webp",
+          "category": "Bathrooms",
+          "unit_type": "",
+          "sha256": "e4cf64622c6abc58e106da56fe8df0f47685ab9add9bb3faa96577394a8aee17"
+        },
+        {
+          "src": "img/rental/property-004/bedrooms/propert-004-muhinja-interior-bedrooms-001.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "0e20f1e46771b37a785e2580e553897dffb979fa592e844ce8a6587457a2be3c"
+        },
+        {
+          "src": "img/rental/property-004/bedrooms/propert-004-muhinja-interior-bedrooms-002.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "e3520ccbbc4360a3224b2c8b0d30e79ced3968b4665c181651b33f9895cddb79"
+        },
+        {
+          "src": "img/rental/property-004/bedrooms/propert-004-muhinja-interior-bedrooms-003.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "c6c350e76373184fc5e5202a3b7c11201924d3261ad35938e12b9ff262749418"
+        },
+        {
+          "src": "img/rental/property-004/bedrooms/propert-004-muhinja-interior-bedrooms-004.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "c6c350e76373184fc5e5202a3b7c11201924d3261ad35938e12b9ff262749418"
+        },
+        {
+          "src": "img/rental/property-004/bedrooms/property-004-bedrooms-001.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "9e55b9a25b1d8c959ea609596dc38d22ce966a0606316be950bda0f34df2d1b7"
+        },
+        {
+          "src": "img/rental/property-004/bedrooms/property-004-bedrooms-002.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "da82520ab64a134fe534ee84c4a78d926c4e27339899b8f5d87c4c4337cff17f"
+        },
+        {
+          "src": "img/rental/property-004/bedrooms/property-004-bedrooms-003.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "c965e11fda62c6077eccffd32f0fe84f98f730ceaa1b20ae366b7f255a6fa0ae"
+        },
+        {
+          "src": "img/rental/property-004/bedrooms/property-004-bedrooms-004.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "3988d1b9e41b7094381882dc4284e17fb1d6414b5e610359df78875a759ef2e2"
+        },
+        {
+          "src": "img/rental/property-004/bedrooms/property-004-bedrooms-005.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "01ddc15002cf6121dcec621c82af7052b19a5b0eac0d5d9585697b7a9620fc06"
+        },
+        {
+          "src": "img/rental/property-004/corridors/propert-004-muhinja-interior-corridors-001.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "85059b96246fb3613a94332378a12c9c51321eab70355a28a20f48c56e229202"
+        },
+        {
+          "src": "img/rental/property-004/corridors/propert-004-muhinja-interior-corridors-002.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "79790cb7b09af00faa11322fc625c1133f3ec6e49ae2a8d43a2b152739b46f35"
+        },
+        {
+          "src": "img/rental/property-004/corridors/propert-004-muhinja-interior-corridors-003.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "d779275179d1c38d7edc84a79bf10c34e437325bd3f4feee857fa84d3b17accf"
+        },
+        {
+          "src": "img/rental/property-004/corridors/property-004-corridors-001.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "f49a5ccbc16a4d1e700550734a531a0e1e601dfaa973ea23397a826ca9661866"
+        },
+        {
+          "src": "img/rental/property-004/dining/propert-004-muhinja-interior-dining-001.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "b2ed4fef27e49efb5395ef91985d72989535b629687e4307842636c8978348d3"
+        },
+        {
+          "src": "img/rental/property-004/dining/propert-004-muhinja-interior-dining-002.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "ca154aaaa20e06635458222424ef3a01cc4003694f417b58223baf64a7cc2c56"
+        },
+        {
+          "src": "img/rental/property-004/dining/property-004-dining-001.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "f6bb59cddd98fe9de3c905219821209d0c8c0d8c78bae2e4a0b5c3e74082b9cd"
+        },
+        {
+          "src": "img/rental/property-004/dining/property-004-dining-002.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "4a6d64aac6047d7a4a0b39f5e4ac259b81f7b8a459ea12619f9dbee13c2a7068"
+        },
+        {
+          "src": "img/rental/property-004/kitchen/propert-004-muhinja-interior-kitchen-001.webp",
+          "category": "Kitchen",
+          "unit_type": "",
+          "sha256": "963edc8ca64b5c76916c6d6d9b1ddb1dd1aed15f6dc06e8384c3fe90b6113858"
+        },
+        {
+          "src": "img/rental/property-004/kitchen/property-004-kitchen-001.webp",
+          "category": "Kitchen",
+          "unit_type": "",
+          "sha256": "8585197ce790d8e8f389ef065ef01bdf7436b71281cc3a82454e0121cd720bae"
+        }
+      ]
+    },
+    "amani-p005": {
+      "folder": "property-005",
+      "gallery_verified": true,
+      "photos": [
+        {
+          "src": "img/rental/property-005/exterior/property-005-harmony-exterior-001.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "b2eb2c45edccb2921077ea2fd04a017a558ca8243e3b83218afd0827a9f2574e"
+        },
+        {
+          "src": "img/rental/property-005/exterior/property-005-harmony-exterior-002.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "7b25d3056dc4f9aad480ce713409cf77d3ff08d6551d53b5888ff4f50d042aa7"
+        },
+        {
+          "src": "img/rental/property-005/exterior/property-005-harmony-exterior-003.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "09f314387863f6c2890ae4f30f9de6473df1cd896a07f917f7454d4cf93f59cf"
+        },
+        {
+          "src": "img/rental/property-005/corridors/property-005-harmony-corridors-001.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "1cabd6a7d3af52fcb6d1b54cbb46914d167875f7f87ffdc62233f2d0b699c103"
+        },
+        {
+          "src": "img/rental/property-005/corridors/property-005-harmony-corridors-002.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "2c19ea62b0e0c2413cc60bb40a27d4bd3f4068779f8766454e39bbed6cadae77"
+        },
+        {
+          "src": "img/rental/property-005/corridors/property-005-harmony-corridors-003.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "86a9128d7bdfae6acc87d88c6357ebda8e065062988cfc1ba8857f169681fa95"
+        },
+        {
+          "src": "img/rental/property-005/corridors/property-005-harmony-corridors-004.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "2638770835188931984fd1ea90ffa5296fced4f2f01e71c801e9f0c8783cd0ef"
+        },
+        {
+          "src": "img/rental/property-005/corridors/property-005-harmony-corridors-005.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "6cd91a9f73545f5e510a38a5ce150cc0676dfc7cd6e7cc955a05e9ea12477de2"
+        },
+        {
+          "src": "img/rental/property-005/parking/property-005-harmony-parking-001.webp",
+          "category": "Parking",
+          "unit_type": "",
+          "sha256": "7bfcd81998fb45bc2f575f5b8fdc91e7e7e4924547a75d544eff4c944a3a3ea3"
+        },
+        {
+          "src": "img/rental/property-005/parking/property-005-harmony-parking-002.webp",
+          "category": "Parking",
+          "unit_type": "",
+          "sha256": "7bfcd81998fb45bc2f575f5b8fdc91e7e7e4924547a75d544eff4c944a3a3ea3"
+        },
+        {
+          "src": "img/rental/property-005/parking/property-005-harmony-parking-003.webp",
+          "category": "Parking",
+          "unit_type": "",
+          "sha256": "4a7f6def1e46cba0c714cec3e95f026d79467cff956fd865ff9933d4e2ec5603"
+        },
+        {
+          "src": "img/rental/property-005/parking/property-005-harmony-parking-004.webp",
+          "category": "Parking",
+          "unit_type": "",
+          "sha256": "b219b6e4fa2b444e63f76f8c32c69fe1869b95f81536cf68ea71b743b6342b42"
+        }
+      ]
+    },
+    "amani-p006": {
+      "folder": "property-006",
+      "gallery_verified": true,
+      "photos": [
+        {
+          "src": "img/rental/property-006/exterior/property-006-exterior-001.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "bb74823bfad375f51f3ab14052445bb8982e6d6e8eb4a2f9fc42bffb679dd2b4"
+        },
+        {
+          "src": "img/rental/property-006/exterior/property-006-exterior-002.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "f2fa1d6797c8ac0ac772a6af8184d821d8a0d0172fadddb88f8cbe17c1826c5e"
+        },
+        {
+          "src": "img/rental/property-006/exterior/property-006-exterior-003.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "f3bf7bfcd59eab51266871750089099f981df68726871ba5b47150d64258b8a6"
+        },
+        {
+          "src": "img/rental/property-006/bathrooms/property-006-bathrooms-001.webp",
+          "category": "Bathrooms",
+          "unit_type": "",
+          "sha256": "d34cd7f8d033030f2f1af1b0a474222fcb287864ebc7b3b829501e6ba5b1c599"
+        },
+        {
+          "src": "img/rental/property-006/bathrooms/property-006-bathrooms-002.webp",
+          "category": "Bathrooms",
+          "unit_type": "",
+          "sha256": "757a9edc03d13c8860b45a374d95e248e2b6804b620bff6770ad42ee3cfecd71"
+        },
+        {
+          "src": "img/rental/property-006/bedrooms/property-006-bedrooms-001.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "39e61d11dad8d58a6ed4fe2ea0cd2c59c4374d578f0f8d73f33ea95c84741be2"
+        },
+        {
+          "src": "img/rental/property-006/corridors/property-006-corridors-001.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "e660685f83f5ad328d6e2523346250cacca9e7ad12a6769c04bd4d326668f84d"
+        },
+        {
+          "src": "img/rental/property-006/corridors/property-006-corridors-002.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "e0095ddfaa8e82879fa4d09ee3792d629741bb266a9e8625f0949c2e2e493420"
+        },
+        {
+          "src": "img/rental/property-006/corridors/property-006-corridors-003.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "e55e779997e35b13c536665f47ff59cb007a96261fc55f2194f350b944d20ffc"
+        },
+        {
+          "src": "img/rental/property-006/kitchen/property-006-kitchen-001.webp",
+          "category": "Kitchen",
+          "unit_type": "",
+          "sha256": "8df5e37a8840b0174859e8e96665ca834cd7916c2a151cbf005946d1feecab12"
+        },
+        {
+          "src": "img/rental/property-006/kitchen/property-006-kitchen-002.webp",
+          "category": "Kitchen",
+          "unit_type": "",
+          "sha256": "a138a9a55a3fca94a767775b08c8cee875b748eed7581cb926fcc01d805d4a28"
+        },
+        {
+          "src": "img/rental/property-006/kitchen/property-006-kitchen-003.webp",
+          "category": "Kitchen",
+          "unit_type": "",
+          "sha256": "ecbd20797334010da1f0187f0744fc8c11cece065944aa686843036069c22571"
+        }
+      ]
+    },
+    "amani-p007": {
+      "folder": "property-007",
+      "gallery_verified": true,
+      "photos": [
+        {
+          "src": "img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-001.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "9ff61d90008bb109c555edddca1a26de58e00a21bf6c087d18f649eead0ce52d"
+        },
+        {
+          "src": "img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-002.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "ea96db2269477c9a869042aa299d9699a924b55373b0ad631edfe21410dd737e"
+        },
+        {
+          "src": "img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-003.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "2b9d9428551fbc63533b6a99c8eca977072a5660baf842fe15a612d132fd993a"
+        },
+        {
+          "src": "img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-004.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "f168bb7f36e326f6428841e64019bcc349c1f5e36fd9539177e76be4ef9abfc6"
+        },
+        {
+          "src": "img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-005.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "2dbe85a8aaa3e56ae8afafdc01f55a5ba01f543124370bb19643eb29d1fd70b8"
+        },
+        {
+          "src": "img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-006.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "32486643aac6f35bc8568b73dd5384d98cbaf9d65e9c2574361c18de3868710d"
+        },
+        {
+          "src": "img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-007.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "7631a560fbcf215d9b37cda4fd98f6088267211378033ecec4252e291e04a92d"
+        },
+        {
+          "src": "img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-008.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "d26e3cb5ff1c8ed643af5faf558d10b8b7e328b3ae505efe3565139f10af5af3"
+        },
+        {
+          "src": "img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-009.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "8561fe791756813924703a0b52360ddc615c390cfecfe4ccb3f481567e907864"
+        },
+        {
+          "src": "img/rental/property-007/bathrooms/property-007-amazon-two-apartment-bathrooms-001.jpg",
+          "category": "Bathrooms",
+          "unit_type": "",
+          "sha256": "c9d512b515219bf7c5750be27adbc7bec9d304dbec365fe0e9f76f9e6b68fafa"
+        },
+        {
+          "src": "img/rental/property-007/bathrooms/property-007-amazon-two-apartment-bathrooms-002.webp",
+          "category": "Bathrooms",
+          "unit_type": "",
+          "sha256": "e38ddf6fc9c616a652e257fc0d84e58fc5ff79966f0baecafda3a5b3bd04d1ba"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-001.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "3dae4449437970dbca3d3182d9e81cb0a5bdd17388151a5eb02ee4b5adff9ab9"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-002.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "b07ef15723f368f4a176c759a8e43207e16f05cd32bb1e2fcb062b05b6462f42"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-003.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "9baadd2eaf735e44282aa51ea8b12525899a0c35e3395293dbd0393595a93062"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-004.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "7c4847b306f0d09c6f87038cd1cfef362c7ed6b913be589d071419e1cdfb5c5d"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-005.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "12facfb3172437a96c2b9988f403e06d8318da067cc424eda4b2bef6a4942f98"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-006.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "394a6675a994b3b78dad6e7a6d9769c0d1aecda005493109fc139811f240f846"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-007.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "4eae36c32565200bb377b7fea1f43c799f6f80dfdeef2c2f6072bcda1c0d7aad"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-008.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "7a640c7f3b0f154552e32c0dfebad0546a9dec2ee7e59fa5ef92458feb6f86e1"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-009.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "dbc762cb5bf3f8346c222f75a94ed133a3847053335fca93687ad1cb6299018a"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-010.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "313c6006e870d59ff84b9c8395be37538becdbc8bc29bdfd4a8a49663db9cb12"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-011.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "69cb9c6986f0aa25059e181b6c4bbf85662e600c79c0cae0afec7fcaa0febef5"
+        },
+        {
+          "src": "img/rental/property-007/bedrooms/property-007-amazon-two-apartment-bedrooms-012.webp",
+          "category": "Bedrooms",
+          "unit_type": "",
+          "sha256": "7b493f34a647ac902561b2b6492a4413b191bda0067d8eacf058fd562d1bca5c"
+        },
+        {
+          "src": "img/rental/property-007/corridors/property-007-amazon-two-apartment-corridors-001.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "5f88159c4a450bb84e3609445ac1988435926ae88f87bc80c86e6d90194cbc52"
+        },
+        {
+          "src": "img/rental/property-007/corridors/property-007-amazon-two-apartment-corridors-002.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "11cd660b93130def9436c9f05842eeac9337225ed810714611ea54f3d67148d0"
+        },
+        {
+          "src": "img/rental/property-007/corridors/property-007-amazon-two-apartment-corridors-003.webp",
+          "category": "Corridors",
+          "unit_type": "",
+          "sha256": "25cff66bcc9410d6f3931c31d2f692dada7bf7f3bd6b91ba8bd588eb5b2d6faa"
+        },
+        {
+          "src": "img/rental/property-007/dining/property-007-amazon-two-apartment-dining-001.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "19d7eb03a50138a186a6458bcc3514763ed5827bacbcb007dd6019bc64fb309d"
+        },
+        {
+          "src": "img/rental/property-007/dining/property-007-amazon-two-apartment-dining-002.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "eeecbf900afeff669cd9e9ac4f68f35757710e6a83e3132ee2ea8864b81c2579"
+        },
+        {
+          "src": "img/rental/property-007/dining/property-007-amazon-two-apartment-dining-003.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "8859905e453fe7dbd2b7cc0f76b0a86d5f198b0241995a6000535c3888889890"
+        },
+        {
+          "src": "img/rental/property-007/dining/property-007-amazon-two-apartment-dining-004.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "1937de982a7ee63174acc9c9840e93dcef47776c705df2527bca0dd80c9510e8"
+        },
+        {
+          "src": "img/rental/property-007/dining/property-007-amazon-two-apartment-dining-005.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "ddccee444434e920533abcc89cad3aae8331f07708da66c447350a0eac01f7ca"
+        },
+        {
+          "src": "img/rental/property-007/dining/property-007-amazon-two-apartment-dining-006.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "21bb3fc3ece6648d425029f1a2be5a296f8810fa6682775ec01acb17c01bfcc1"
+        },
+        {
+          "src": "img/rental/property-007/dining/property-007-amazon-two-apartment-dining-007.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "f74241863f02e71ff6d814973effbdf08a102a66abe28466fb196d70fe57d74f"
+        },
+        {
+          "src": "img/rental/property-007/dining/property-007-amazon-two-apartment-dining-008.webp",
+          "category": "Dining",
+          "unit_type": "",
+          "sha256": "c9137ab3c3669acb86272c7902794c60015214d418cd887f05ed575aaff61274"
+        }
+      ]
+    },
+    "amani-p008": {
+      "folder": "property-008",
+      "gallery_verified": true,
+      "photos": []
+    },
+    "amani-p009": {
+      "folder": "property-009",
+      "gallery_verified": true,
+      "photos": [
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-001.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "acc071ecc6f2139077f00cc1dc8e50c0c388ade84dff944aa2cb5ec889999fae"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-002.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "ffb995a412aeae167b0e30bb2b764f8dd44a999cad3f11aa4b48d02f6852f511"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-003.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "bd19c46e4fd38f2b6c4f2bdff9d6352f558c4c44ed052739c74a645a731135de"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-004.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "03ffeadc188c19c10a1ba5925a89092a459a3ace6bf08e4ad35f05bf82b69737"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-005.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "0d2ecd157c8b030ead40a6cf5ed29e32da517be4d7dd18c3a18210de04e9eff1"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-006.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "ae4815374a5ff545e8e63c98416f6f02d1bef12cda6f2e6a4d16de75949f2002"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-007.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "2814069decfa2827e4c1675213a00b1c1dd4e53fb0332bc25b4c1f2596fd25b4"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-008.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "fc4c52826bf65c090f00b6cc1a3c6505d74522a83534535d39c9614b713357dd"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-009.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "29017877fa00c22a922faa7c94192253b1467d43e78254b1f57508d2d74a7c40"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-010.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "d139cfc5db8e1b2b814e09ef102bf4c482d8cd6ac83bad8751b84556dfeae79e"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-011.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "acc071ecc6f2139077f00cc1dc8e50c0c388ade84dff944aa2cb5ec889999fae"
+        },
+        {
+          "src": "img/rental/property-009/exterior/property-009-juja-farm-studios-organized-exterior-012.webp",
+          "category": "Exterior",
+          "unit_type": "",
+          "sha256": "ffb995a412aeae167b0e30bb2b764f8dd44a999cad3f11aa4b48d02f6852f511"
+        },
+        {
+          "src": "img/rental/property-009/bathrooms/property-009-juja-farm-studios-organized-bathrooms-001.webp",
+          "category": "Bathrooms",
+          "unit_type": "",
+          "sha256": "420b15e3c07d677f20a2c2dfdacfc417c794d485dc4dd8a12b18162e1035b4cf"
+        },
+        {
+          "src": "img/rental/property-009/kitchen/property-009-juja-farm-studios-organized-kitchen-001.webp",
+          "category": "Kitchen",
+          "unit_type": "",
+          "sha256": "17aa5774f06b4f5ca4bf4323d12ed7c6986135fcbdd285110d687197d694bae0"
+        },
+        {
+          "src": "img/rental/property-009/studios/property-009-juja-farm-studios-organized-studios-001.webp",
+          "category": "Living Areas",
+          "unit_type": "Studio",
+          "sha256": "8155f508db1dc5a518d02d518ff4ff5b502bca8f302fc2e6a84e19d3149da899"
+        },
+        {
+          "src": "img/rental/property-009/studios/property-009-juja-farm-studios-organized-studios-002.webp",
+          "category": "Living Areas",
+          "unit_type": "Studio",
+          "sha256": "78d5c1b295e1d2a5b3dbd0279ddccf7e18ddb0113c37313e2686df8dd9fb311c"
+        }
+      ]
+    },
+    "amani-p010": {
+      "folder": "property-010",
+      "gallery_verified": true,
+      "photos": []
+    }
+  }
+}

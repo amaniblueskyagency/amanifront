@@ -1,0 +1,10 @@
+# Amani Blue Sky - Netlify redirects. Source; generated dist/_redirects is the deployable file.
+/api/site/*  /.netlify/functions/site-proxy/:splat  200
+/index.html  /  301!
+/about.html  /about/  301!
+/contact.html  /contact/  301!
+/property-list.html  /property-list/  301!
+/property-type.html  /property-type/  301!
+/property-agent.html  /property-agent/  301!
+/testimonial.html  /testimonial/  301!
+# Do not redirect properties.html or property.html: these legacy detail URLs may have ?id= or ?slug=.

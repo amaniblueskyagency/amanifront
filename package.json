@@ -1,0 +1,13 @@
+{
+  "name": "amani-web",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "check:deploy": "node scripts/test-deployment.mjs"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

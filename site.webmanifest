@@ -1,0 +1,15 @@
+{
+  "name": "Amani Blue Sky Properties",
+  "short_name": "Amani Blue Sky",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1455ba",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "001": {
+    "db_id": "amani-p001",
+    "label": "Wakiinama Cravers"
+  },
+  "002": {
+    "db_id": "amani-p002",
+    "label": "Wakiinama Makongeni"
+  },
+  "003": {
+    "db_id": "amani-p003",
+    "label": "Wakiinama Blessings",
+    "gallery_verified": true
+  },
+  "004": {
+    "db_id": "amani-p004",
+    "label": "Muhinja View Residence",
+    "excluded_gallery_paths": [
+      "bathrooms/property-004-property-002-bathrooms-001.webp",
+      "bathrooms/property-004-property-002-bathrooms-002.webp",
+      "bedrooms/property-004-property-002-bedrooms-001.webp",
+      "bedrooms/property-004-property-002-bedrooms-002.webp",
+      "bedrooms/property-004-property-002-bedrooms-003.webp",
+      "bedrooms/property-004-property-002-bedrooms-004.webp",
+      "bedrooms/property-004-property-002-bedrooms-005.webp",
+      "corridors/property-004-property-002-corridors-001.webp",
+      "dining/property-004-property-002-dining-001.webp",
+      "dining/property-004-property-002-dining-002.webp",
+      "exterior/property-004-property-002-exterior-001.webp",
+      "exterior/property-004-property-002-exterior-002.webp",
+      "exterior/property-004-property-002-exterior-003.webp",
+      "exterior/property-004-property-002-exterior-004.webp",
+      "exterior/property-004-property-002-exterior-005.webp",
+      "exterior/property-004-property-002-exterior-006.webp",
+      "exterior/property-004-property-002-exterior-007.webp",
+      "general/property-004-1.webp",
+      "general/property-004-10.webp",
+      "general/property-004-11.webp",
+      "general/property-004-12.webp",
+      "general/property-004-2.webp",
+      "general/property-004-3.webp",
+      "general/property-004-4.webp",
+      "general/property-004-5.webp",
+      "general/property-004-6.webp",
+      "general/property-004-7.webp",
+      "general/property-004-8.webp",
+      "general/property-004-9.webp",
+      "kitchen/property-004-property-002-kitchen-001.webp"
+    ]
+  },
+  "005": {
+    "db_id": "amani-p005",
+    "label": "Harmony Apartments"
+  },
+  "006": {
+    "db_id": "amani-p006",
+    "label": "Vinny House",
+    "excluded_gallery_paths": [
+      "bathrooms/property-006-property-006-bathrooms-001.webp",
+      "bathrooms/property-006-property-006-bathrooms-002.webp",
+      "bedrooms/property-006-property-006-bedrooms-001.webp",
+      "corridors/property-006-property-006-corridors-001.webp",
+      "corridors/property-006-property-006-corridors-002.webp",
+      "corridors/property-006-property-006-corridors-003.webp",
+      "exterior/property-006-property-006-exterior-001.webp",
+      "exterior/property-006-property-006-exterior-002.webp",
+      "exterior/property-006-property-006-exterior-003.webp",
+      "kitchen/property-006-property-006-kitchen-001.webp",
+      "kitchen/property-006-property-006-kitchen-002.webp",
+      "kitchen/property-006-property-006-kitchen-003.webp"
+    ]
+  },
+  "007": {
+    "db_id": "amani-p007",
+    "label": "Amazon Apartment"
+  },
+  "008": {
+    "db_id": "amani-p008",
+    "label": "Viewland"
+  },
+  "009": {
+    "db_id": "amani-p009",
+    "label": "Juja Farm Apartments"
+  },
+  "010": {
+    "db_id": "amani-p010",
+    "label": "Abby House"
+  }
+}

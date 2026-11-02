@@ -1,0 +1,42 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Primary canonical host supplied by the site owner. Set this apex domain as
+# the primary domain in Netlify Domains; Netlify handles www -> apex there.
+[context.production.environment]
+  SITE_URL = "https://amanibluesky.com"
+
+[functions]
+  directory = "netlify/functions"
+
+# The source files in public/ are copied to dist/; build regenerates the live sitemap, robots and redirects.
+# API proxy and 301s are generated into dist/_redirects at build time.
+# Do not duplicate redirect rules here: _redirects has priority on Netlify.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+
+[[headers]]
+  for = "/property_gallery_published.json"
+  [headers.values]
+    Cache-Control = "no-store, max-age=0"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=3600"

@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.netlify/
+.DS_Store
+dist/
+__pycache__/
+*.pyc
+*proxy routing*
