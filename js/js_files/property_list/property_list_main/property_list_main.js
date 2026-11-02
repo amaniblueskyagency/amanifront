@@ -181,6 +181,14 @@ export async function initPropertyListPage() {
       normalizeProperty(item, lookup)
     );
 
+    // Keep the build-time property directory visible if the API temporarily
+    // returns no listings. Replacing it with an empty JS view makes Google
+    // see an otherwise valid page as an empty or error-like page (Soft 404).
+    if (!properties.length && listRoot.querySelector('a[href^="/properties/"]')) {
+      console.warn("Property API returned no listings; retaining the published property directory.");
+      return;
+    }
+
     const route = getRouteParams();
 
     const categories = normalizeArray(categoriesRaw)
@@ -222,14 +230,11 @@ export async function initPropertyListPage() {
   } catch (err) {
     console.error("❌ initPropertyListPage error:", err);
 
-    listRoot.innerHTML = `
-      <div class="container-xxl py-5">
-        <div class="container">
-          <div class="alert alert-danger mb-0">
-            Failed to load property list from the database.
-          </div>
-        </div>
-      </div>
-    `;
+    // Do not erase the meaningful build-time property directory on a transient
+    // API error. The static directory remains useful to both visitors and
+    // search crawlers; availability is checked on the linked detail pages.
+    if (!listRoot.querySelector('a[href^="/properties/"]')) {
+      listRoot.innerHTML = `<section class="container py-5"><h2>Explore rental properties</h2><p>Browse our <a href="/rentals/">rental categories</a> or <a href="/contact/">contact our team</a> for viewing assistance.</p></section>`;
+    }
   }
 }
