@@ -154,7 +154,7 @@ const catalogLinks=properties.filter(p=>/^amani-p\d{3,}$/.test(String(p?.id||'')
   return `<li><a href="/properties/${encodeURIComponent(id)}/">${escapeHtml(label)}</a>${area?` — ${escapeHtml(area)}`:''}</li>`;
 }).join('');
 const homeBrandIntro=`<section class="container py-4" aria-label="Amani Blue Sky rental services"><h2>Homes to rent with Amani Blue Sky Properties</h2><p>Amani Blue Sky Properties is a property agency helping people explore rental houses, apartments, studios and bedsitters in and around Thika and Juja, Kenya. Our site also uses the name Amani Blue Sky Agency. View property photographs, compare rental options and check specific available units before requesting a viewing.</p><p><a href="/rentals/">Browse rental types</a> · <a href="/property-list/">See all properties</a> · <a href="/contact/">Contact our property team</a></p></section>`;
-const listingFallback=`<section class="container py-5" aria-label="Explore properties"><p><a href="/rentals/">Browse rental categories</a></p><h2>Find apartments, studios and bedsitters in Kenya</h2><p>Explore Amani Blue Sky Properties listings and check available units before booking a visit.</p><ul>${catalogLinks}</ul></section>`;
+const listingFallback=`<section class="container py-5" aria-label="Explore properties"><p><a href="/rentals/">Browse rental categories</a></p><h2>Rental properties in Thika and Juja</h2><p>Explore Amani Blue Sky Properties apartments, studios, bedsitters and houses in Thika, Juja and nearby neighbourhoods. Open an individual property to review its details and check current unit availability before booking a visit.</p><ul>${catalogLinks}</ul></section>`;
 for(const name of Object.keys(staticRoutes)){
   const full=resolve(root,name);if(!existsSync(full)) throw Error(`Missing required HTML file: ${name}`);
   const [route,title,description]=staticRoutes[name];
@@ -171,9 +171,14 @@ for(const name of Object.keys(staticRoutes)){
     html=html.replace('</body>',`    ${homeBrandIntro}
 </body>`);
   }
-  // Preserve original HTML for local/legacy use, and publish pretty-url /page/.
-  await writeFile(resolve(out,name),html,'utf8');
-  if(!['property.html','properties.html'].includes(name)&&route.endsWith('/')&&route!=='/'){
+  // Publish exactly one physical document for each public pretty URL.
+  // A sibling /property-list.html can make Netlify's Pretty URLs redirect
+  // /property-list/ to /property-list, conflicting with our canonical/sitemap.
+  // Keep only index.html, legacy property detail templates, 404 and noindex
+  // testimonial as standalone HTML. Existing forced .html redirects still work.
+  const prettyRoute=!['property.html','properties.html','testimonial.html'].includes(name)&&route.endsWith('/')&&route!=='/';
+  if(!prettyRoute) await writeFile(resolve(out,name),html,'utf8');
+  if(prettyRoute){
     const dest=resolve(out,route.slice(1),'index.html');await mkdir(resolve(out,route.slice(1)),{recursive:true});
     await writeFile(dest,html.replace('<head>','<head>\n    <base href="/">'),'utf8');
   }
@@ -245,7 +250,7 @@ await mkdir(resolve(out,'rentals'),{recursive:true});await writeFile(resolve(out
 // The existing category UI remains unchanged; a crawlable type index helps
 // non-JS search crawlers discover newly generated real category pages.
 const categoryHtml=`<nav aria-label="Browse homes by type"><h2>Browse rental property types</h2><ul>${categoryOverviewLinks.join('')}</ul></nav>`;
-for(const filename of ['property-type/index.html','property-type.html']){
+for(const filename of ['property-type/index.html']){
   const target=resolve(out,filename);
   let html=await readFile(target,'utf8');
   html=html.replace('<div id="property-type-section"></div>',`<div id="property-type-section">${categoryHtml}</div>`);

@@ -27,6 +27,7 @@ assert(!redirects.has('/properties.html')&&!redirects.has('/property.html'),'Leg
 const staticPages=['about','contact','property-list','property-type','property-agent','testimonial'];
 for(const page of staticPages)assert(redirects.get(`/${page}.html`)===`/${page}.html  /${page}/  301!`,`Missing legacy pretty URL redirect for ${page}`);
 for(const p of ['properties','property'])assert(existsSync(join(root,`${p}.html`)),`Missing legacy detail template ${p}.html`);
+for(const page of ['about','contact','property-list','property-type','property-agent'])assert(!existsSync(join(root,`${page}.html`)),`Duplicate physical route may cause Netlify Pretty URLs canonical conflict: ${page}.html`);
 const siteRobots=read('robots.txt');
 assert(siteRobots.includes(`Sitemap: ${base}/sitemap.xml`),'Robots sitemap hostname mismatch');
 assert(!/Disallow: \/\s*$/m.test(siteRobots),'Robots blocks entire site');
