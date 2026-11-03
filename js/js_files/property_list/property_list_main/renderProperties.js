@@ -109,10 +109,10 @@ function propertyCard(property, delay = "0.1s") {
             <i class="fa fa-ruler-combined text-primary me-2"></i>${escapeHtml(formatArea(property.area))}
           </small>
           <small class="flex-fill text-center border-end py-2">
-            <i class="fa fa-bed text-primary me-2"></i>${escapeHtml(property.bedrooms || 0)} Bed
+            <i class="fa fa-bed text-primary me-2"></i>${Number(property.bedrooms)>0?`${escapeHtml(property.bedrooms)} Bed`:'Beds not listed'}
           </small>
           <small class="flex-fill text-center py-2">
-            <i class="fa fa-bath text-primary me-2"></i>${escapeHtml(property.bathrooms || 0)} Bath
+            <i class="fa fa-bath text-primary me-2"></i>${Number(property.bathrooms)>0?`${escapeHtml(property.bathrooms)} Bath`:'Baths not listed'}
           </small>
         </div>
       </div>
@@ -333,6 +333,9 @@ export function bindPropertyListPageEvents({
     });
   };
 
+  // Homepage links use /property-list/?q=...; apply the search automatically.
+  const initialKeyword = new URLSearchParams(window.location.search).get('q');
+  if (keywordEl && initialKeyword) { keywordEl.value = initialKeyword.slice(0,120); rerender(); }
   if (searchBtn) searchBtn.addEventListener("click", rerender);
   if (typeEl) typeEl.addEventListener("change", rerender);
   if (locationEl) locationEl.addEventListener("change", rerender);

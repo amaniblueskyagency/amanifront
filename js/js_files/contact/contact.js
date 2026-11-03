@@ -2,7 +2,8 @@
 
 import {
   fetchPropertyCategories,
-  fetchLocations
+  fetchLocations,
+  fetchFooter
 } from "../../services/amani-api.js";
 
 import {
@@ -11,12 +12,13 @@ import {
   bindContactPageEvents
 } from "./renderContact.js";
 
-const CONTACT_INFO = {
-  title: "Get In Touch",
-  address: "Kigio Plaza , Thika, Kenya",
-  phone: "+254 797 674649",
-  email: "info@amaniblueskyagency.com",
-  mapEmbed: "https://www.google.com/maps?q=Kigio%20Plaza%20Thika%20Kenya&output=embed"
+// Contact data comes from the public Amani site configuration. Do not
+// advertise a guessed office address or an unverified mailbox on the website.
+const CONTACT_FALLBACK = {
+  title: 'Contact Amani',
+  address: '', email: '',
+  phone: '+254 797 674649',
+  mapEmbed: ''
 };
 
 export async function initContactPage() {
@@ -24,10 +26,20 @@ export async function initContactPage() {
   if (!mainRoot) return;
 
   try {
-    const [categoriesRaw, locationsRaw] = await Promise.all([
+    const [categoriesRaw, locationsRaw, footerResponse] = await Promise.all([
       fetchPropertyCategories(),
-      fetchLocations()
+      fetchLocations(),
+      fetchFooter().catch(() => null)
     ]);
+    const savedContact = footerResponse?.footer?.columns?.contact || {};
+    const contact = {
+      ...CONTACT_FALLBACK,
+      address: String(savedContact.address || '').trim(),
+      phone: String(savedContact.phone || CONTACT_FALLBACK.phone).trim(),
+      email: String(savedContact.email || '').trim(),
+      // Use a verified map stored by the site admin, not a guessed location.
+      mapEmbed: String(savedContact.mapEmbed || '').trim()
+    };
 
     renderContactSearchSection({
       rootId: "contact-search-section",
@@ -37,7 +49,7 @@ export async function initContactPage() {
 
     renderContactMainSection({
       rootId: "contact-main-section",
-      contact: CONTACT_INFO
+      contact
     });
 
     bindContactPageEvents({

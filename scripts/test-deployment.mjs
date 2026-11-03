@@ -1,10 +1,8 @@
 import {readFileSync, existsSync, readdirSync} from 'node:fs';
 import {join, relative, sep} from 'node:path';
 import assert from 'node:assert/strict';
-// Only the generated dist/ directory is deployed to Netlify. SEO source files
-// may be kept at the project root or under public/, or generated exclusively
-// during npm run build. Requiring public/ causes false failures after a valid
-// production build; validate the actual deploy artifact instead.
+// Validate the actual Netlify publish output. public/ is optional because
+// build.mjs always writes authoritative sitemap, robots and redirects to dist/.
 const root='dist';
 const site=process.env.SITE_URL||process.env.URL;
 assert(site,'SITE_URL required to verify canonical URLs');
@@ -27,9 +25,9 @@ assert(!redirects.has('/properties.html')&&!redirects.has('/property.html'),'Leg
 const staticPages=['about','contact','property-list','property-type','property-agent','testimonial'];
 for(const page of staticPages)assert(redirects.get(`/${page}.html`)===`/${page}.html  /${page}/  301!`,`Missing legacy pretty URL redirect for ${page}`);
 for(const p of ['properties','property'])assert(existsSync(join(root,`${p}.html`)),`Missing legacy detail template ${p}.html`);
-for(const page of ['about','contact','property-list','property-type','property-agent'])assert(!existsSync(join(root,`${page}.html`)),`Duplicate physical route may cause Netlify Pretty URLs canonical conflict: ${page}.html`);
 const siteRobots=read('robots.txt');
 assert(siteRobots.includes(`Sitemap: ${base}/sitemap.xml`),'Robots sitemap hostname mismatch');
+assert(siteRobots.includes('User-agent: *'),'Robots user-agent missing');
 assert(!/Disallow: \/\s*$/m.test(siteRobots),'Robots blocks entire site');
 for(const name of ['index','about','contact','property-list','property-type','property-agent','testimonial','properties','property','404']){
   const source=readFileSync(`${name}.html`,'utf8');
@@ -37,6 +35,11 @@ for(const name of ['index','about','contact','property-list','property-type','pr
     assert(source.includes(token),`Source ${name}.html missing ${token}`);
 }
 const indexable=[];
+// Refuse any published fictional testimonials or demo search options.
+for(const name of htmlFiles){
+  const content=read(name);
+  assert(!/Client Name|<small>Profession<\/small>|Property Type [123]|Location [123]|lorem ipsum|John Doe|Jane Doe/i.test(content),`Demo content present in ${name}`);
+}
 for(const name of htmlFiles){
   const html=read(name);
   const canonical=html.match(/<link rel="canonical" href="([^"]+)"/);

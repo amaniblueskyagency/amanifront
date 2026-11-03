@@ -11,48 +11,10 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
-export function renderContactSearchSection({ rootId, categories, locations }) {
-  const root = document.getElementById(rootId);
+export function renderContactSearchSection({rootId}) {
+  const root=document.getElementById(rootId);
   if (!root) return;
-
-  const categoryOptions = [
-    `<option selected>Property Type</option>`,
-    ...categories.map((category) => `<option value="${escapeHtml(category.id)}">${escapeHtml(category.title || category.name)}</option>`)
-  ].join("");
-
-  const locationOptions = [
-    `<option selected>Location</option>`,
-    ...locations.map((location) => `<option value="${escapeHtml(location.id)}">${escapeHtml(location.name)}</option>`)
-  ].join("");
-
-  root.innerHTML = `
-    <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
-      <div class="container">
-        <div class="row g-2">
-          <div class="col-md-10">
-            <div class="row g-2">
-              <div class="col-md-4">
-                <input type="text" class="form-control border-0 py-3" placeholder="Search Keyword">
-              </div>
-              <div class="col-md-4">
-                <select class="form-select border-0 py-3">
-                  ${categoryOptions}
-                </select>
-              </div>
-              <div class="col-md-4">
-                <select class="form-select border-0 py-3">
-                  ${locationOptions}
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <button class="btn btn-dark border-0 w-100 py-3">Search</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
+  root.innerHTML=`<section class="container-fluid bg-primary mb-5 py-4" aria-label="Search rental properties"><div class="container"><form action="/property-list/" method="get" role="search" class="row g-2"><div class="col-md-9"><label class="visually-hidden" for="{rootId}-q">Find a property or location</label><input id="{rootId}-q" name="q" type="search" class="form-control border-0 py-3" placeholder="Search published rental properties"></div><div class="col-md-3"><button class="btn btn-dark border-0 w-100 py-3" type="submit">Search listings</button></div></form></div></section>`;
 }
 
 export function renderContactMainSection({ rootId, contact }) {
@@ -65,12 +27,12 @@ export function renderContactMainSection({ rootId, contact }) {
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
           <span class="section-eyebrow">Start a conversation</span>
           <h1 class="mb-3">Contact Us</h1>
-          <p>Reach Amani Blue Sky Agency for inquiries about property listings, rentals, purchases, site visits, and professional support.</p>
+          <p>Reach Amani Blue Sky Agency about published rental properties, locations and viewing requests.</p>
         </div>
         <div class="row g-4 premium-contact-layout">
           <div class="col-12">
             <div class="row gy-4">
-              <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
+              ${contact.address ? `<div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
                 <div class="bg-light rounded p-3">
                   <div class="d-flex align-items-center bg-white rounded p-3" style="border: 1px dashed rgba(0, 185, 142, .3)">
                     <div class="icon me-3" style="width: 45px; height: 45px;">
@@ -79,8 +41,8 @@ export function renderContactMainSection({ rootId, contact }) {
                     <span>${escapeHtml(contact.address)}</span>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+              </div>` : ''}
+              ${contact.email ? `<div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
                 <div class="bg-light rounded p-3">
                   <div class="d-flex align-items-center bg-white rounded p-3" style="border: 1px dashed rgba(0, 185, 142, .3)">
                     <div class="icon me-3" style="width: 45px; height: 45px;">
@@ -89,7 +51,7 @@ export function renderContactMainSection({ rootId, contact }) {
                     <span>${escapeHtml(contact.email)}</span>
                   </div>
                 </div>
-              </div>
+              </div>` : ''}
               <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
                 <div class="bg-light rounded p-3">
                   <div class="d-flex align-items-center bg-white rounded p-3" style="border: 1px dashed rgba(0, 185, 142, .3)">
@@ -102,13 +64,13 @@ export function renderContactMainSection({ rootId, contact }) {
               </div>
             </div>
           </div>
-          <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+          ${contact.mapEmbed ? `<div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <iframe class="position-relative rounded w-100 h-100"
               src="${escapeHtml(contact.mapEmbed)}"
               frameborder="0" style="min-height: 400px; border:0;" allowfullscreen="" aria-hidden="false"
               tabindex="0"></iframe>
-          </div>
-          <div class="col-md-6">
+          </div>` : ''}
+          <div class="${contact.mapEmbed?'col-md-6':'col-12'}">
             <div class="wow fadeInUp" data-wow-delay="0.5s">
               <p class="mb-4">Use the form below to reach Amani Blue Sky Agency. Share your name, contact details, and message, and our team will follow up to assist you.</p>
               <form>

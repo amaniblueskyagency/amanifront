@@ -7,4 +7,50 @@ node_modules/
 dist/
 __pycache__/
 *.pyc
-*proxy routing*
+*.log
+
+# Amani: local-only and unused assets; kept on D: but not in public GitHub
+/-files .env .env.local dist node_modules
+/ite API proxy routing*
+/README.txt
+/SEO_GENERATED_FILES_README.txt
+/DEPLOYMENT.md
+/SAMPLE_CONTENT_REMOVAL_AUDIT.md
+/AMANI_BRAND_SEARCH_TERMS_RESEARCH.csv
+/RUN_WEB.cmd
+/scripts/*.py
+/scripts/*.bat
+/aman/
+/property_gallery_published.json
+/property_gallery_manifest.json
+**/IMAGE_IMPORT_MANIFEST.csv
+/img/about.jpg
+/img/call-to-action.jpg
+/img/carousel-1.jpg
+/img/carousel-2.jpg
+/img/header.jpg
+/img/property-1.jpg
+/img/property-2.jpg
+/img/property-3.jpg
+/img/property-4.jpg
+/img/property-5.jpg
+/img/property-6.jpg
+/img/team-1.jpg
+/img/team-2.jpg
+/img/team-3.jpg
+/img/team-4.jpg
+/img/testimonial-1.jpg
+/img/testimonial-2.jpg
+/img/testimonial-3.jpg
+/img/testimonial-4.jpg
+/img/WhatsApp Image 2025-11-30 at 7.59.51 PM.jpeg
+/img/icon-building.png
+/img/icon-condominium.png
+/img/icon-deal.jpg
+/img/icon-deal.png
+/img/icon-house.png
+/img/icon-housing.png
+/img/icon-luxury.png
+/img/icon-neighborhood.png
+/img/icon-search.png
+/img/icon-villa.png

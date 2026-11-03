@@ -5,7 +5,12 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
-    "check:deploy": "node scripts/test-deployment.mjs"
+    "check:deploy": "node scripts/test-deployment.mjs",
+    "check:content": "node scripts/test-real-content.mjs",
+    "clean:demo": "node scripts/clean-demo-assets.mjs",
+    "check:brand": "node scripts/test-brand-indexing.mjs",
+    "check:live": "node scripts/check-live-brand.mjs",
+    "check:brand:built": "node scripts/test-brand-indexing.mjs --built"
   },
   "engines": {
     "node": ">=20.19.0"

@@ -1,4 +1,4 @@
-﻿// js/js_files/about/about.js
+// js/js_files/about/about.js
 
 import {
   fetchAgents,
@@ -40,9 +40,9 @@ export async function initAboutPage() {
       fetchLocations()
     ]);
 
-    const agents = normalizeArray(agentsRaw).map((agent) => ({
+    const agents = normalizeArray(agentsRaw).filter(agent => agent?.name && agent.is_synthetic !== true && (agent.image || agent.avatar)).map((agent) => ({
       ...agent,
-      image: agent.image || agent.avatar || "img/team-1.jpg",
+      image: agent.image || agent.avatar,
       role: agent.role || "Property Consultant"
     }));
 

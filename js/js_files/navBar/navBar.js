@@ -15,11 +15,13 @@ export async function renderNavBar() {
         <h1 class="m-0 text-primary">${escapeHtml(data.brand?.title || '')}</h1>
       </a>`;
 
-    const itemsHTML = (data.items || []).map((it) => {
-      if (it.type === 'link') return `<a href="${escapeAttr(it.href || '#')}" class="${escapeAttr(it.classes || 'nav-item nav-link')}">${escapeHtml(it.text)}</a>`;
+    const validHref = value => typeof value === 'string' && (/^(\/|https:\/\/|mailto:|tel:)/i.test(value) || /^[a-z0-9_/-]+\.html(?:[?#].*)?$/i.test(value));
+    const isRetiredReview = link => /testimonial|review/i.test(String(link?.href || ''));
+    const itemsHTML = (data.items || []).filter(it=>!isRetiredReview(it)).map((it) => {
+      if (it.type === 'link') return validHref(it.href) ? `<a href="${escapeAttr(it.href)}" class="${escapeAttr(it.classes || 'nav-item nav-link')}">${escapeHtml(it.text)}</a>` : '';
       if (it.type === 'dropdown') {
-        const inner = (it.items || []).map(ii => `<a href="${escapeAttr(ii.href || '#')}" class="dropdown-item">${escapeHtml(ii.text)}</a>`).join('');
-        return `<div class="nav-item dropdown"><a href="${escapeAttr(it.href || '#')}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${escapeHtml(it.text)}</a><div class="${escapeAttr(data.dropdownMenuClasses || 'dropdown-menu rounded-0 m-0')}">${inner}</div></div>`;
+        const inner = (it.items || []).filter(ii=>!isRetiredReview(ii) && validHref(ii.href)).map(ii => `<a href="${escapeAttr(ii.href)}" class="dropdown-item">${escapeHtml(ii.text)}</a>`).join('');
+        return inner ? `<div class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">${escapeHtml(it.text)}</a><div class="${escapeAttr(data.dropdownMenuClasses || 'dropdown-menu rounded-0 m-0')}">${inner}</div></div>` : '';
       }
       return '';
     }).join('');

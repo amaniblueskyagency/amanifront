@@ -9,54 +9,10 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
-export function renderError404SearchSection({ rootId, categories, locations }) {
-  const root = document.getElementById(rootId);
+export function renderError404SearchSection({rootId}) {
+  const root=document.getElementById(rootId);
   if (!root) return;
-
-  const categoryOptions = [
-    `<option selected>Property Type</option>`,
-    ...categories.map(
-      (category) =>
-        `<option value="${escapeHtml(category.id)}">${escapeHtml(category.title || category.name)}</option>`
-    )
-  ].join("");
-
-  const locationOptions = [
-    `<option selected>Location</option>`,
-    ...locations.map(
-      (location) =>
-        `<option value="${escapeHtml(location.id)}">${escapeHtml(location.name)}</option>`
-    )
-  ].join("");
-
-  root.innerHTML = `
-    <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
-      <div class="container">
-        <div class="row g-2">
-          <div class="col-md-10">
-            <div class="row g-2">
-              <div class="col-md-4">
-                <input type="text" class="form-control border-0 py-3" placeholder="Search Keyword">
-              </div>
-              <div class="col-md-4">
-                <select class="form-select border-0 py-3">
-                  ${categoryOptions}
-                </select>
-              </div>
-              <div class="col-md-4">
-                <select class="form-select border-0 py-3">
-                  ${locationOptions}
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <button class="btn btn-dark border-0 w-100 py-3">Search</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
+  root.innerHTML=`<section class="container-fluid bg-primary mb-5 py-4" aria-label="Search rental properties"><div class="container"><form action="/property-list/" method="get" role="search" class="row g-2"><div class="col-md-9"><label class="visually-hidden" for="{rootId}-q">Find a property or location</label><input id="{rootId}-q" name="q" type="search" class="form-control border-0 py-3" placeholder="Search published rental properties"></div><div class="col-md-3"><button class="btn btn-dark border-0 w-100 py-3" type="submit">Search listings</button></div></form></div></section>`;
 }
 
 export function renderError404MainSection({ rootId }) {
@@ -71,7 +27,7 @@ export function renderError404MainSection({ rootId }) {
             <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
             <h1 class="display-1">404</h1>
             <h1 class="mb-4">Page Not Found</h1>
-            <p class="mb-4">Sorry, the page you are looking for does not exist on the Amani Blue Sky Agency website. Please return home or use the search section above.</p>
+            <p class="mb-4">Sorry, the page you are looking for does not exist on the Amani Blue Sky Agency website. Return to the homepage or search current rental listings.</p>
             <a class="btn btn-primary py-3 px-5" href="/">Go Back To Home</a>
           </div>
         </div>

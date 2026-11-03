@@ -1,4 +1,4 @@
-﻿// js/js_files/property_agent/property_agent.js
+// js/js_files/property_agent/property_agent.js
 
 import {
   fetchAgents,
@@ -55,7 +55,7 @@ function normalizeAgent(agent, properties, categoriesMap) {
 
   return {
     ...agent,
-    image: agent.image || agent.avatar || "img/team-1.jpg",
+    image: agent.image || agent.avatar,
     role: agent.role || "Property Consultant",
     property_count: myProperties.length,
     specialties: categoryNames
@@ -81,7 +81,7 @@ export async function initPropertyAgentPage() {
     const categoriesMap = buildMap(categoriesRaw, "id");
 
     const properties = normalizeArray(propertiesRaw).map((item) => normalizeProperty(item, locationMap));
-    const agents = normalizeArray(agentsRaw).map((agent) => normalizeAgent(agent, properties, categoriesMap));
+    const agents = normalizeArray(agentsRaw).filter(agent => agent?.name && agent.is_synthetic !== true && (agent.image || agent.avatar)).map((agent) => normalizeAgent(agent, properties, categoriesMap));
 
     const locations = normalizeArray(locationsRaw)
       .slice()
@@ -89,7 +89,8 @@ export async function initPropertyAgentPage() {
 
     renderPropertyAgentSearchSection({
       rootId: "property-agent-search-section",
-      locations
+      locations,
+      agents
     });
 
     renderPropertyAgentSection({

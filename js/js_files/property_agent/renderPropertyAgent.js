@@ -16,9 +16,9 @@ function agentCard(agent, delay = "0.1s") {
         <div class="position-relative">
           <img class="img-fluid" src="${escapeHtml(agent.image)}" alt="${escapeHtml(agent.name)}">
           <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-            <a class="btn btn-square mx-1" href="${agent.phone ? `tel:${escapeHtml(agent.phone)}` : "#"}"><i class="fa fa-phone-alt"></i></a>
-            <a class="btn btn-square mx-1" href="${agent.whatsapp ? `https://wa.me/${escapeHtml(String(agent.whatsapp).replace(/\D/g, ""))}` : "#"}"><i class="fab fa-whatsapp"></i></a>
-            <a class="btn btn-square mx-1" href="${agent.email ? `mailto:${escapeHtml(agent.email)}` : "#"}"><i class="fa fa-envelope"></i></a>
+            <a class="btn btn-square mx-1" href="${agent.phone ? `tel:${escapeHtml(agent.phone)}` : "/contact/"}"><i class="fa fa-phone-alt"></i></a>
+            <a class="btn btn-square mx-1" href="${agent.whatsapp ? `https://wa.me/${escapeHtml(String(agent.whatsapp).replace(/\D/g, ""))}` : "/contact/"}"><i class="fab fa-whatsapp"></i></a>
+            <a class="btn btn-square mx-1" href="${agent.email ? `mailto:${escapeHtml(agent.email)}` : "/contact/"}"><i class="fa fa-envelope"></i></a>
           </div>
         </div>
         <div class="text-center p-4 mt-3">
@@ -30,7 +30,7 @@ function agentCard(agent, delay = "0.1s") {
   `;
 }
 
-export function renderPropertyAgentSearchSection({ rootId, locations }) {
+export function renderPropertyAgentSearchSection({ rootId, locations, agents = [] }) {
   const root = document.getElementById(rootId);
   if (!root) return;
 
@@ -51,9 +51,7 @@ export function renderPropertyAgentSearchSection({ rootId, locations }) {
               <div class="col-md-4">
                 <select id="property-agent-role-filter" class="form-select border-0 py-3">
                   <option value="">Agent Role</option>
-                  <option value="Property Consultant">Property Consultant</option>
-                  <option value="Sales Agent">Sales Agent</option>
-                  <option value="Rental Agent">Rental Agent</option>
+                  ${[...new Set(agents.map(a=>String(a.role||'').trim()).filter(Boolean))].sort().map(role=>`<option value="${escapeHtml(role)}">${escapeHtml(role)}</option>`).join('')}
                 </select>
               </div>
               <div class="col-md-4">
@@ -78,7 +76,7 @@ export function renderPropertyAgentSection({ rootId, agents }) {
 
   const cards = agents.length
     ? agents.map((agent, index) => agentCard(agent, `${0.1 + (index % 4) * 0.2}s`)).join("")
-    : `<div class="col-12"><div class="alert alert-light border mb-0">No agents found.</div></div>`;
+    : `<div class="col-12"><p><a href="/contact/">Contact Amani about a rental or viewing.</a></p></div>`;
 
   root.innerHTML = `
     <div class="container-xxl py-5">
@@ -86,7 +84,7 @@ export function renderPropertyAgentSection({ rootId, agents }) {
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
           <span class="section-eyebrow">Your guides</span>
           <h1 class="mb-3">Property Agents</h1>
-          <p>Meet the Amani Blue Sky Agency team ready to guide you through buying, renting, and property consultations with confidence.</p>
+          <p>Contact Amani Blue Sky Properties about rental listings and property viewings.</p>
         </div>
         <div class="row g-4">
           ${cards}
@@ -107,13 +105,13 @@ export function renderPropertyAgentCTASection({ rootId }) {
           <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0, 185, 142, .3)">
             <div class="row g-5 align-items-center">
               <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                <img class="img-fluid rounded w-100" src="img/call-to-action.jpg" alt="">
+                <img class="img-fluid rounded w-100" src="img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-002.webp" alt="">
               </div>
               <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                 <div class="mb-4">
                   <span class="section-eyebrow on-dark">Personal guidance</span>
-                  <h1 class="mb-3">Contact With Our Certified Agent</h1>
-                  <p>Speak with our team for property guidance, site visits, rentals, purchases, and professional support.</p>
+                  <h1 class="mb-3">Contact the Amani Property Team</h1>
+                  <p>Contact Amani about its published property listings and arrange a viewing for a listed unit.</p>
                 </div>
                 <a href="tel:+254797674649" class="btn btn-primary py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Make A Call</a>
                 <a href="/contact/" class="btn btn-dark py-3 px-4"><i class="fa fa-calendar-alt me-2"></i>Get Appointment</a>

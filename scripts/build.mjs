@@ -7,6 +7,8 @@
 import {cp, mkdir, readFile, writeFile, rm} from 'node:fs/promises';
 import {readdirSync, existsSync} from 'node:fs';
 import {resolve, join} from 'node:path';
+// Do not allow sample content to return in any public HTML or review renderer.
+await import('./test-real-content.mjs');
 
 const root=resolve('.');
 const out=resolve('dist');
@@ -29,9 +31,25 @@ const toJSON=(obj)=>JSON.stringify(obj).replace(/</g,'\\u003c');
 const brand='Amani Blue Sky Properties';
 // User-confirmed brand-search variants. These are identity hints, not keyword-stuffed pages.
 const brandAlternates=[
-  'Amani Blue Sky Properties Agency', 'Amani Blue Sky Agency', 'Amani Blue Sky', 'Amani Properties',
-  'AmaniBlueSkyProperties', 'Amani BlueSky Properties', 'Blue Sky Properties',
-  'Blue Sky Agency', 'amanibluesky.com'
+  "Amani Blue Sky Properties Agency",
+  "Amani Blue Sky Agency",
+  "Amani Blue Sky Property Agency",
+  "Amani Blue Sky Property",
+  "Amani Properties Agency",
+  "Amani Property Agency",
+  "Amani Properties",
+  "Amani Blue Sky",
+  "Amani Bluesky",
+  "Amani Bluesky Agency",
+  "Amani BlueSky Properties",
+  "AmaniBlueSkyProperties",
+  "AmaniBlueSkyPropertiesAgency",
+  "AmaniBlueSkyAgency",
+  "Blue Sky Properties",
+  "Blue Sky Agency",
+  "Blue Sky Property Agency",
+  "Blue Sky Property",
+  "amanibluesky.com"
 ];
 // Public routes: all canonical pages are generated at build time; no hand-edited sitemap.
 const rentalCategories={
@@ -42,17 +60,52 @@ const rentalCategories={
   houses:{label:'Houses for Rent',single:'house',description:'Explore residential houses for rent with Amani Blue Sky Properties.'}
 };
 const cleanArray=v=>Array.isArray(v)?v:[];
-function propertyKinds(property){
-  const words=[property.type_name,property.property_type_title,property.category_name,property.property_category,property.type].map(x=>textOnly(x)).join(' ').toLowerCase();
-  const unitWords=cleanArray(property.units).map(u=>[u.unit_type,u.unit_category,u.usage_type].map(x=>textOnly(x)).join(' ')).join(' ').toLowerCase();
+function publicUnitKinds(property){
+  // Unit classifications must come from actual public listings. Property
+  // marketing names (e.g. "Abby House") do not establish unit types.
+  const units=cleanArray(property.units);
+  const labels=units.flatMap(u=>[u.unit_type,u.unit_category,u.usage_type,u.unit_title].map(textOnly)).filter(Boolean);
+  const stated=[property.type_name,property.property_type_title,property.category_name,property.property_category,property.type]
+    .map(textOnly).filter(Boolean);
+  const unitTypes=cleanArray(property.unit_types).map(textOnly).filter(Boolean);
+  const authored=textOnly(property.description||'');
+  const descriptionParts=cleanArray(property.description_json).map(textOnly).filter(Boolean);
+  // Only classify property types explicitly stated in the live property data.
+  const words=[...labels,...unitTypes,...stated,authored,...descriptionParts].join(' ').toLowerCase();
   const kinds=new Set();
-  if (/\bstudio\b|\bstudios\b/.test(unitWords+' '+words)) kinds.add('studios');
-  if (/\bbedsitter\b|\bbedsitters\b|\bbed-sitter\b/.test(unitWords+' '+words)) kinds.add('bedsitters');
-  if (/\bshop\b|\bshops\b|\bcommercial\b|\bretail\b/.test(unitWords+' '+words)) kinds.add('shops');
-  if (/\bapartment\b|\bapartments\b|\b[1-9]br\b|\b[1-9]\s*bedroom\b/.test(unitWords+' '+words)) kinds.add('apartments');
-  if (/\bhouse\b|\bhouses\b|\bmaisonette\b|\bvilla\b/.test(unitWords+' '+words)) kinds.add('houses');
+  if(/\bstudios?\b|\bstudio\s+apartments?\b/.test(words))kinds.add('studios');
+  if(/\bbedsitters?\b|\bbed[-\s]?sitters?\b|\bsingle\s+rooms?\b/.test(words))kinds.add('bedsitters');
+  if(/\bshops?\b|\bcommercial\b|\bretail\b|\bstalls?\b/.test(words))kinds.add('shops');
+  if(/\bapartments?\b|\bflats?\b|\b[1-9]\s*(?:br|bedrooms?|beds?)\b|\bone[-\s]bedroom\b|\btwo[-\s]bedroom\b|\bthree[-\s]bedroom\b/.test(words) ||
+     units.some(u=>Number(u.bedrooms)>0))kinds.add('apartments');
+  if(/\b(?:detached\s+)?houses?\b|\bmaisonettes?\b|\bvillas?\b/.test(words))kinds.add('houses');
   return kinds;
 }
+function unitFacts(property){
+  const units=cleanArray(property.units);
+  // Only publicly listed units passed through the backend API. No vacancy
+  // promise is ever derived from the existence of a public unit record.
+  const types=[...new Set(units.map(u=>textOnly(u.unit_type||u.unit_category||u.unit_title)).filter(Boolean))].slice(0,8);
+  const rents=units.map(u=>Number(u.rent_amount)).filter(v=>Number.isFinite(v)&&v>0&&v<100000000).sort((a,b)=>a-b);
+  const prices=rents.length?{minimum:rents[0],maximum:rents[rents.length-1]}:null;
+  return {types,prices};
+}
+const currency=v=>`KES ${Math.round(v).toLocaleString('en-US')}`;
+function factualPropertySummary(property,location){
+  const title=textOnly(property.title)||String(property.id||'Property');
+  const {types,prices}=unitFacts(property);
+  const excerpts=Array.isArray(property.description_json)
+    ?property.description_json.filter(x=>typeof x==='string').map(textOnly).filter(Boolean):[];
+  const authored=textOnly(property.description)||excerpts.join(' ')||textOnly(property.notes);
+  const facts=[];
+  if(types.length)facts.push(`Publicly listed unit types: ${types.join(', ')}.`);
+  if(prices)facts.push(prices.minimum===prices.maximum
+    ?`Listed monthly rent: ${currency(prices.minimum)}.`
+    :`Listed monthly rents range from ${currency(prices.minimum)} to ${currency(prices.maximum)}.`);
+  const intro=`${title}${location?` is listed in ${location}`:' is listed for rent'}.`;
+  return {title,authored,facts,intro,types,prices};
+}
+function propertyKinds(property){return publicUnitKinds(property);}
 
 
 function meta({title,description,route,type='website',image='',noindex=false,structured=null}){
@@ -61,7 +114,7 @@ function meta({title,description,route,type='website',image='',noindex=false,str
     `<title>${escapeHtml(title)}</title>`,
     `<meta name="description" content="${escapeHtml(description)}">`,
     `<link rel="canonical" href="${escapeHtml(url)}">`,
-    ...(noindex?['<meta name="robots" content="noindex,follow">']:[]),
+    ...(noindex?['<meta name="robots" content="noindex,follow">']:['<meta name="robots" content="index,follow,max-image-preview:large">']),
     `<meta property="og:type" content="${type}">`,
     `<meta property="og:site_name" content="${brand}">`,
     `<meta property="og:title" content="${escapeHtml(title)}">`,
@@ -102,17 +155,17 @@ function organizationSchema(){return {
   '@context':'https://schema.org',
   '@graph':[
     {'@type':'WebSite','@id':`${site}/#website`,name:brand,alternateName:brandAlternates,url:`${site}/`,inLanguage:'en-KE',publisher:{'@id':`${site}/#organization`}},
-    {'@type':'Organization','@id':`${site}/#organization`,name:brand,alternateName:brandAlternates,url:`${site}/`,logo:`${site}/favicon.png`,description:'Kenyan real estate agency featuring residential rentals, apartments, studios and bedsitters in locations including Thika and Juja.'}
+    {'@type':'Organization','@id':`${site}/#organization`,name:brand,alternateName:brandAlternates,url:`${site}/`,logo:`${site}/favicon.png`,description:'Amani Blue Sky Properties Agency lists rental properties and viewing enquiries in Thika and Juja, Kenya.',areaServed:[{'@type':'Place',name:'Thika, Kenya'},{'@type':'Place',name:'Juja, Kenya'}]}
   ]
 };}
 const staticRoutes={
- 'index.html':["/","Amani Blue Sky Properties | Houses & Apartments for Rent in Thika & Juja","Looking for a house to rent in Thika or Juja? Find apartments, studios, bedsitters and property enquiries with Amani Blue Sky Properties Agency and Amani Blue Sky Agency."],
+ 'index.html':["/","Amani Blue Sky Properties Agency | Rentals in Thika & Juja","Amani Blue Sky Properties Agency, also known as Amani Blue Sky Agency, helps you find rental houses, apartments, studios and bedsitters in Thika and Juja."],
  'about.html':["/about/","About Amani Blue Sky Properties | Real Estate Agency in Kenya","Learn about Amani Blue Sky Properties Agency, property management and rental services in Thika, Juja and nearby areas."],
  'contact.html':["/contact/","Contact Amani Blue Sky Agency | Rental & Property Enquiries","Contact Amani Blue Sky Properties about rental houses, apartment viewings and property services in Thika and Juja."],
- 'property-list.html':["/property-list/","Houses & Apartments for Rent in Thika & Juja | Amani","Explore houses, apartments, studios and bedsitters for rent in Thika, Juja and surrounding areas. Check available units and request a visit."],
+ 'property-list.html':["/property-list/","Houses & Apartments for Rent in Thika & Juja | Amani Blue Sky Properties","Explore houses, apartments, studios and bedsitters for rent in Thika, Juja and surrounding areas. Check available units and request a visit."],
  'property-type.html':["/property-type/","Property Types & Rental Homes | Amani Blue Sky Properties","Compare rental apartments, bedsitters, studio rooms, houses and shops offered by Amani Blue Sky Properties Agency."],
  'property-agent.html':["/property-agent/","Real Estate Team | Amani Blue Sky Properties Agency","Meet the Amani Blue Sky Agency property team and discover how to enquire about a rental or viewing."],
- 'testimonial.html':["/testimonial/","Testimonials | Amani Blue Sky Properties","Explore the Amani Blue Sky property agency and its real estate services."],
+ 'testimonial.html':["/testimonial/","Property Enquiries | Amani Blue Sky Properties","How to browse Amani rental properties and request an appointment or viewing."],
  'properties.html':["/property-list/","Property Details | Amani Blue Sky Properties","Browse rental property details and available units through Amani Blue Sky Properties."],
  'property.html':["/property-list/","Property Details | Amani Blue Sky Properties","Explore rental property details and unit availability with Amani Blue Sky Properties."],
  '404.html':["/404.html","Page Not Found | Amani Blue Sky Properties","The Amani Blue Sky Properties page you requested could not be found."],
@@ -121,7 +174,7 @@ const staticRoutes={
 // identity/availability from it in production. The API supplies live names.
 async function getProperties(){
   if(backend){
-    const timeout=AbortSignal.timeout(35000);
+    const timeout=AbortSignal.timeout(110000);
     try {
       const response=await fetch(`${backend}/api/site/properties-with-availability`,{signal:timeout,headers:{accept:'application/json'}});
       if(!response.ok) throw Error(`HTTP ${response.status}`);
@@ -144,6 +197,17 @@ await rm(out,{recursive:true,force:true});await mkdir(out,{recursive:true});
 for(const name of ['css','js','img','lib','ama','favicon.png','property_gallery_published.json','property_gallery_manifest.json','site.webmanifest']){
   if(existsSync(resolve(root,name))) await cp(resolve(root,name),resolve(out,name),{recursive:true});
 }
+// These are leftover stock/demo template portraits, testimonials and generic
+// property hero images. None are Amani property-folder photos and none are
+// published: only actual catalog photographs may represent rental properties.
+for(const name of [
+  'about.jpg','call-to-action.jpg','carousel-1.jpg','carousel-2.jpg','header.jpg',
+  'property-1.jpg','property-2.jpg','property-3.jpg','property-4.jpg','property-5.jpg','property-6.jpg',
+  'team-1.jpg','team-2.jpg','team-3.jpg','team-4.jpg',
+  'testimonial-1.jpg','testimonial-2.jpg','testimonial-3.jpg','testimonial-4.jpg'
+]){
+  await rm(resolve(out,'img',name),{force:true});
+}
 // Public is inspectable in source control. Copy files exactly as Netlify expects;
 // later build-generated sitemap/robots/redirects replace the source baselines.
 if(existsSync(resolve(root,'public')))await cp(resolve(root,'public'),out,{recursive:true});
@@ -151,34 +215,57 @@ const catalogLinks=properties.filter(p=>/^amani-p\d{3,}$/.test(String(p?.id||'')
   const id=String(p.id);
   const label=textOnly(p.title)||id;
   const area=textOnly(p.location_name || p.location?.name || p.locations?.name || '');
-  return `<li><a href="/properties/${encodeURIComponent(id)}/">${escapeHtml(label)}</a>${area?` — ${escapeHtml(area)}`:''}</li>`;
+  const info=unitFacts(p);
+  const unitText=info.types.length?` — ${escapeHtml(info.types.join(', '))}`:'';
+  const rentText=info.prices?` — monthly rents ${escapeHtml(info.prices.minimum===info.prices.maximum?currency(info.prices.minimum):`${currency(info.prices.minimum)} to ${currency(info.prices.maximum)}`)}`:'';
+  return `<li><a href="/properties/${encodeURIComponent(id)}/">${escapeHtml(label)}</a>${area?` — ${escapeHtml(area)}`:''}${unitText}${rentText}</li>`;
 }).join('');
-const homeBrandIntro=`<section class="container py-4" aria-label="Amani Blue Sky rental services"><h2>Homes to rent with Amani Blue Sky Properties</h2><p>Amani Blue Sky Properties is a property agency helping people explore rental houses, apartments, studios and bedsitters in and around Thika and Juja, Kenya. Our site also uses the name Amani Blue Sky Agency. View property photographs, compare rental options and check specific available units before requesting a viewing.</p><p><a href="/rentals/">Browse rental types</a> · <a href="/property-list/">See all properties</a> · <a href="/contact/">Contact our property team</a></p></section>`;
-const listingFallback=`<section class="container py-5" aria-label="Explore properties"><p><a href="/rentals/">Browse rental categories</a></p><h2>Rental properties in Thika and Juja</h2><p>Explore Amani Blue Sky Properties apartments, studios, bedsitters and houses in Thika, Juja and nearby neighbourhoods. Open an individual property to review its details and check current unit availability before booking a visit.</p><ul>${catalogLinks}</ul></section>`;
+const homeBrandIntro=`<section class="container py-4" aria-label="Amani Blue Sky property agency information"><h2>About Amani Blue Sky Properties Agency</h2><p>Amani Blue Sky Properties is also known as Amani Blue Sky Agency and Amani Properties Agency. We publish rental property listings with photos, locations and unit enquiries in Thika, Juja and the other areas shown on individual property pages. Our official website is amanibluesky.com; this page identifies the Amani agency independently of similarly named property businesses.</p><p><a href="/property-list/">Browse real rental properties</a> · <a href="/rentals/">Explore rental types</a> · <a href="/about/">About the agency</a> · <a href="/contact/">Contact Amani</a></p></section>`;
+const listingFallback=`<section class="container py-5" aria-label="Explore properties"><p><a href="/rentals/">Browse rental categories</a></p><h2>Find apartments, studios and bedsitters in Kenya</h2><p>Explore Amani Blue Sky Properties listings and check available units before booking a visit.</p><ul>${catalogLinks}</ul></section>`;
 for(const name of Object.keys(staticRoutes)){
   const full=resolve(root,name);if(!existsSync(full)) throw Error(`Missing required HTML file: ${name}`);
   const [route,title,description]=staticRoutes[name];
   const isNoIndex=name==='404.html'||name==='properties.html'||name==='property.html'||name==='testimonial.html';
-  const structured=name==='index.html'?organizationSchema():null;
-  let html=rewriteHead(await readFile(full,'utf8'),meta({title,description,route,noindex:isNoIndex,structured}));
+  const structured=name==='index.html'?organizationSchema():(!isNoIndex?{'@context':'https://schema.org','@type':'WebPage','@id':canonical(route),url:canonical(route),name:title,description,isPartOf:{'@id':`${site}/#website`},about:{'@id':`${site}/#organization`}}:null);
+  const homeImage=name==='index.html'&&existsSync(resolve(root,'img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-001.webp')) ? `${site}/img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-001.webp` : '';
+  let html=rewriteHead(await readFile(full,'utf8'),meta({title,description,route,noindex:isNoIndex,structured,image:homeImage}));
   if(name==='properties.html'||name==='property.html') html=html.replace('<div id="property-details-container"></div>','<div id="property-details-container"><h1 class="visually-hidden">Property details</h1></div>');
+  // These aren't fictional reviews or made-up agents: show concise factual
+  // fallbacks for visitors and crawlers when API-dependent JS has not run yet.
+  if(name==='about.html') {
+    const areas=[...new Set(properties.map(p=>textOnly(p.location_name||p.location?.name||p.locations?.name||'')).filter(Boolean))];
+    const text=`<section class="container-xxl py-5"><div class="container"><h2>About Amani Blue Sky Properties</h2><p>Amani Blue Sky Properties Agency lists rental properties with individual property pages, photographs, location information and unit enquiries. The published property portfolio includes ${properties.length} properties${areas.length?` in locations such as ${escapeHtml(areas.slice(0,6).join(', '))}`:''}.</p><p><a href="/property-list/">Browse actual property listings</a> · <a href="/contact/">Contact Amani</a></p></div></section>`;
+    html=html.replace('<div id="about-main-section"></div>',`<div id="about-main-section">${text}</div>`);
+  }
+  if(name==='contact.html') {
+    const text=`<section class="container-xxl py-5"><div class="container"><h2>Contact Amani Blue Sky Properties</h2><p>Ask about a named property in Thika, Juja or the areas shown in our rental listings. To request a visit, open the property and select an available unit.</p><p><a href="/property-list/">View property listings</a> · <a href="tel:+254797674649">Call Amani</a></p></div></section>`;
+    html=html.replace('<div id="contact-main-section"></div>',`<div id="contact-main-section">${text}</div>`);
+  }
+  if(name==='property-agent.html') {
+    const text=`<section class="container-xxl py-5"><div class="container"><h2>Property enquiries</h2><p>Contact Amani Blue Sky Properties to enquire about a published rental property or request a viewing.</p><p><a href="/contact/">Contact the property team</a> · <a href="/property-list/">Browse properties</a></p></div></section>`;
+    html=html.replace('<div id="property-agent-section"></div>',`<div id="property-agent-section">${text}</div>`);
+  }
+  if(name==='testimonial.html') {
+    const text=`<section class="container-xxl py-5"><div class="container"><h2>Rental enquiries and viewings</h2><p>Review a published Amani rental property, check its displayed unit availability and contact the property team about viewing arrangements.</p><p><a href="/property-list/">Find a property</a> · <a href="/contact/">Contact Amani</a></p></div></section>`;
+    html=html.replace('<div id="testimonial-main-section"></div>',`<div id="testimonial-main-section">${text}</div>`);
+  }
+  if(name==='properties.html'||name==='property.html') {
+    const text='<p class="container py-4">Choose a property from the <a href="/property-list/">current property listings</a> to view its details.</p>';
+    html=html.replace('<div id="property-details-container"><h1 class="visually-hidden">Property details</h1></div>',`<div id="property-details-container"><h1 class="visually-hidden">Property details</h1>${text}</div>`);
+  }
   if(name==='index.html'||name==='property-list.html') {
     // Each section is replaced by the original live JS renderer after page load.
     html=html.replace('<div id="property-list-section"></div>',`<div id="property-list-section">${listingFallback}</div>`);
   }
   if(name==='index.html') {
     // Visible and useful brand/rental context; deliberately not hidden keyword stuffing.
-    html=html.replace('</body>',`    ${homeBrandIntro}
-</body>`);
+    if(!html.includes('<!-- Header End -->')) throw Error('Homepage header insertion point changed; brand intro must remain visible');
+    html=html.replace('<!-- Header End -->',`<!-- Header End -->
+${homeBrandIntro}`);
   }
-  // Publish exactly one physical document for each public pretty URL.
-  // A sibling /property-list.html can make Netlify's Pretty URLs redirect
-  // /property-list/ to /property-list, conflicting with our canonical/sitemap.
-  // Keep only index.html, legacy property detail templates, 404 and noindex
-  // testimonial as standalone HTML. Existing forced .html redirects still work.
-  const prettyRoute=!['property.html','properties.html','testimonial.html'].includes(name)&&route.endsWith('/')&&route!=='/';
-  if(!prettyRoute) await writeFile(resolve(out,name),html,'utf8');
-  if(prettyRoute){
+  // Preserve original HTML for local/legacy use, and publish pretty-url /page/.
+  await writeFile(resolve(out,name),html,'utf8');
+  if(!['property.html','properties.html'].includes(name)&&route.endsWith('/')&&route!=='/'){
     const dest=resolve(out,route.slice(1),'index.html');await mkdir(resolve(out,route.slice(1)),{recursive:true});
     await writeFile(dest,html.replace('<head>','<head>\n    <base href="/">'),'utf8');
   }
@@ -193,9 +280,9 @@ for(const property of properties){
   const route=`/properties/${id}/`;
   const titleText=textOnly(property.title)||`Property ${id}`;
   const location=textOnly(property.location_name || property.location?.name || property.locations?.name || '');
-  const excerpts = Array.isArray(property.description_json) ? property.description_json.filter(x=>typeof x==='string').map(textOnly).filter(Boolean) : [];
-  const factualDescription=textOnly(property.description) || excerpts.join(' ');
-  const description=concise(factualDescription ? `${titleText}${location?` — ${location}`:''}. ${factualDescription}` : `Explore ${titleText}${location?` in ${location}`:''}. View photos, rental information and current unit availability with Amani Blue Sky Properties.`);
+  const facts=factualPropertySummary(property,location);
+  const factualDescription=facts.authored;
+  const description=concise([facts.intro,factualDescription,...facts.facts].filter(Boolean).join(' '),165);
   const title=concise(`${titleText}${location?` — ${location}`:''} | Amani Blue Sky Properties`,95);
   const group=galleryIndex.properties?.[id];
   const num=id.slice('amani-p'.length);
@@ -203,9 +290,11 @@ for(const property of properties){
   const image=photo?`${site}/${photo.src.split('/').map(encodeURIComponent).join('/')}`:'';
   if(image) propertyImages.set(route,image);
   const place={'@type':'Place',name:titleText,...(location?{description:location}:{})};
-  const structured={'@context':'https://schema.org','@type':'WebPage',url:canonical(route),name:title,description,isPartOf:{'@type':'WebSite',name:brand,url:site},about:place,...(image?{primaryImageOfPage:image}:{})};
-  // Pre-render the property's real content; JS replaces this on successful API load.
-  const summary=`<section class="container-xxl py-5" aria-label="Property overview"><div class="container"><p><a href="/property-list/">Browse properties</a></p><h1>${escapeHtml(titleText)}</h1>${location?`<p>${escapeHtml(location)}</p>`:''}<p>${escapeHtml(description)}</p>${image?`<img src="${escapeHtml(image)}" alt="${escapeHtml(titleText)} property exterior or interior" loading="eager" style="max-width:100%;height:auto;max-height:500px;object-fit:contain">`:''}</div></section>`;
+  const structured={'@context':'https://schema.org','@type':'WebPage','@id':canonical(route),url:canonical(route),name:title,description,isPartOf:{'@id':`${site}/#website`},about:place,breadcrumb:{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${site}/`},{'@type':'ListItem',position:2,name:'Properties',item:`${site}/property-list/`},{'@type':'ListItem',position:3,name:titleText,item:canonical(route)}]},...(image?{primaryImageOfPage:image}:{})};
+  // Render genuine public property information in the HTML for visitors and
+  // non-JavaScript crawlers. Live JS still controls unit vacancy and bookings.
+  const factsList=facts.facts.length?`<ul>${facts.facts.map(f=>`<li>${escapeHtml(f)}</li>`).join('')}</ul>`:'';
+  const summary=`<section class="container-xxl py-5" aria-label="Property overview"><div class="container"><p><a href="/property-list/">Browse properties</a></p><h1>${escapeHtml(titleText)}</h1>${location?`<p>${escapeHtml(location)}</p>`:''}<p>${escapeHtml(facts.intro)}</p>${facts.authored?`<p>${escapeHtml(facts.authored)}</p>`:''}${factsList}<p>Unit availability changes. View current listings or contact the property team to confirm a viewing.</p>${image?`<img src="${escapeHtml(image)}" alt="${escapeHtml(titleText)} property exterior or interior" loading="eager" style="max-width:100%;height:auto;max-height:500px;object-fit:contain">`:''}</div></section>`;
   let html=rewriteHead(detailTemplate,meta({title,description,route,image,structured}));
   html=html.replace('<head>','<head>\n    <base href="/">');
   html=html.replace('<div id="property-details-container"></div>',`<div id="property-details-container">${summary}</div>`);
@@ -230,12 +319,14 @@ for(const [key,category] of Object.entries(rentalCategories)){
   if(!matches.length)continue;
   const route=`/rentals/${key}/`;
   const title=`${category.label} in Kenya | Amani Blue Sky Properties`;
+  const areas=[...new Set(matches.map(p=>textOnly(p.location_name||p.location?.name||p.locations?.name||'')).filter(Boolean))].slice(0,5);
   const description=category.description;
+  const factualArea=areas.length?`Property locations in this category include ${areas.join(', ')}.`:'';
   const items=matches.map(p=>{
     const id=String(p.id);const loc=textOnly(p.location_name||p.location?.name||p.locations?.name||'');
     return `<li><a href="/properties/${encodeURIComponent(id)}/">${escapeHtml(textOnly(p.title)||id)}</a>${loc?` — ${escapeHtml(loc)}`:''}</li>`;
   }).join('');
-  const page=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">${meta({title,description,route,structured:{'@context':'https://schema.org','@type':'CollectionPage',url:canonical(route),name:title,description,isPartOf:{'@type':'WebSite',name:brand,url:site}}})}<link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/custom_style.css"><link rel="stylesheet" href="/css/signature-design.css"></head><body><header class="container py-4"><a href="/" class="navbar-brand">Amani Blue Sky Properties</a><nav aria-label="Main navigation"><a href="/property-list/">All properties</a> · <a href="/property-type/">Property types</a> · <a href="/contact/">Contact</a></nav></header><main class="container py-5"><h1>${escapeHtml(category.label)}</h1><p>${escapeHtml(description)}</p><p>Available units change. Open a property to check its current status before requesting a viewing.</p><ul class="list-group">${items.replace(/<li>/g,'<li class="list-group-item">')}</ul><p class="mt-4"><a href="/property-list/">Browse all property listings</a></p></main></body></html>`;
+  const page=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">${meta({title,description,route,structured:{'@context':'https://schema.org','@type':'CollectionPage',url:canonical(route),name:title,description,isPartOf:{'@type':'WebSite',name:brand,url:site}}})}<link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/custom_style.css"><link rel="stylesheet" href="/css/signature-design.css"></head><body><header class="container py-4"><a href="/" class="navbar-brand">Amani Blue Sky Properties</a><nav aria-label="Main navigation"><a href="/property-list/">All properties</a> · <a href="/property-type/">Property types</a> · <a href="/contact/">Contact</a></nav></header><main class="container py-5"><h1>${escapeHtml(category.label)}</h1><p>${escapeHtml(description)}</p>${factualArea?`<p>${escapeHtml(factualArea)}</p>`:''}<p>Available units change. Open a property to check its current status before requesting a viewing.</p><ul class="list-group">${items.replace(/<li>/g,'<li class="list-group-item">')}</ul><p class="mt-4"><a href="/property-list/">Browse all property listings</a></p></main></body></html>`;
   const dest=resolve(out,'rentals',key,'index.html');await mkdir(resolve(out,'rentals',key),{recursive:true});await writeFile(dest,page);
   categoryRoutes.push(route);
   categoryOverviewLinks.push(`<li><a href="${route}">${escapeHtml(category.label)}</a> (${matches.length} propert${matches.length===1?'y':'ies'})</li>`);
@@ -250,7 +341,7 @@ await mkdir(resolve(out,'rentals'),{recursive:true});await writeFile(resolve(out
 // The existing category UI remains unchanged; a crawlable type index helps
 // non-JS search crawlers discover newly generated real category pages.
 const categoryHtml=`<nav aria-label="Browse homes by type"><h2>Browse rental property types</h2><ul>${categoryOverviewLinks.join('')}</ul></nav>`;
-for(const filename of ['property-type/index.html']){
+for(const filename of ['property-type/index.html','property-type.html']){
   const target=resolve(out,filename);
   let html=await readFile(target,'utf8');
   html=html.replace('<div id="property-type-section"></div>',`<div id="property-type-section">${categoryHtml}</div>`);
