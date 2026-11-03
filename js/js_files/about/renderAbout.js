@@ -46,7 +46,7 @@ export function renderAboutMainSection({ rootId, stats }) {
         <div class="row g-5 align-items-center">
           <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
             <div class="about-img position-relative overflow-hidden p-5 pe-0">
-              <img class="img-fluid w-100" src="img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-001.webp">
+              <img class="img-fluid w-100" src="/img/rental/property-007/exterior/property-007-amazon-two-apartments-exterior-001.webp">
             </div>
           </div>
           <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
@@ -81,7 +81,7 @@ export function renderAboutCTASection({ rootId }) {
           <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0, 185, 142, .3)">
             <div class="row g-5 align-items-center">
               <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                <img class="img-fluid rounded w-100" src="img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-002.webp" alt="">
+                <img class="img-fluid rounded w-100" src="/img/rental/property-007/exterior/property-007-amazon-two-apartments-exterior-002.webp" alt="">
               </div>
               <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                 <div class="mb-4">

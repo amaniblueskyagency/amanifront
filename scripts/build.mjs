@@ -227,7 +227,7 @@ for(const name of Object.keys(staticRoutes)){
   const [route,title,description]=staticRoutes[name];
   const isNoIndex=name==='404.html'||name==='properties.html'||name==='property.html'||name==='testimonial.html';
   const structured=name==='index.html'?organizationSchema():(!isNoIndex?{'@context':'https://schema.org','@type':'WebPage','@id':canonical(route),url:canonical(route),name:title,description,isPartOf:{'@id':`${site}/#website`},about:{'@id':`${site}/#organization`}}:null);
-  const homeImage=name==='index.html'&&existsSync(resolve(root,'img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-001.webp')) ? `${site}/img/rental/property-007/exterior/property-007-amazon-two-apartment-exterior-001.webp` : '';
+  const homeImage=name==='index.html'&&existsSync(resolve(root,'img/rental/property-007/exterior/property-007-amazon-two-apartments-exterior-001.webp')) ? `${site}/img/rental/property-007/exterior/property-007-amazon-two-apartments-exterior-001.webp` : '';
   let html=rewriteHead(await readFile(full,'utf8'),meta({title,description,route,noindex:isNoIndex,structured,image:homeImage}));
   if(name==='properties.html'||name==='property.html') html=html.replace('<div id="property-details-container"></div>','<div id="property-details-container"><h1 class="visually-hidden">Property details</h1></div>');
   // These aren't fictional reviews or made-up agents: show concise factual
