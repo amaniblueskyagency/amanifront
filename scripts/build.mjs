@@ -365,4 +365,14 @@ const redirects=[
 ];
 await writeFile(resolve(out,'_redirects'),redirects.join('\n')+'\n');
 await writeFile(resolve(out,'site.webmanifest'),JSON.stringify({name:brand,short_name:'Amani Blue Sky',start_url:'/',display:'standalone',theme_color:'#1455ba',background_color:'#ffffff',icons:[{src:'/favicon.png',sizes:'any',type:'image/png'}]},null,2));
+// Deployment safety: a gallery entry must resolve to a real file on Netlify.
+// Check the built folder, not only the original source, to catch stale/broken paths.
+for (const [id, group] of Object.entries(galleryIndex.properties || {})) {
+  for (const image of group.photos || []) {
+    const src = image.src;
+    if (typeof src !== 'string' || !/^img\/rental\/property-\d{3,}\//.test(src) || src.includes('..') || !existsSync(resolve(out, src))) {
+      throw new Error(`[Gallery deployment] Missing or unsafe image for ${id}: ${String(src)}`);
+    }
+  }
+}
 console.log(`[SEO] Generated ${propertyRoutes.length} property pages, ${categoryRoutes.length} rental-category pages and ${routes.length} canonical sitemap URLs for ${site}`);
