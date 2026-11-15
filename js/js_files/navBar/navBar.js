@@ -9,6 +9,9 @@ export async function renderNavBar() {
     const data = payload?.navBar;
     if (!data) throw new Error('No Amani navigation record is configured in the database.');
 
+    // Use the supplied Amani Blue Sky Agency Limited logo instead of a stale backend icon URL.
+    if (data.brand) data.brand.icon = { ...(data.brand.icon || {}), src: '/ama/logo1.png', alt: 'Amani Blue Sky Agency Limited' };
+
     const brandHTML = `
       <a href="${escapeAttr(data.brand?.link || 'index.html')}" class="navbar-brand d-flex align-items-center text-center">
         ${data.brand?.icon?.src ? `<div class="icon p-2 me-2"><img class="img-fluid" src="${escapeAttr(data.brand.icon.src)}" alt="${escapeAttr(data.brand.icon.alt || data.brand.title || 'Amani')}" style="${escapeAttr(data.brand.icon.style || '')}"></div>` : ''}
