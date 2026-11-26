@@ -174,15 +174,51 @@ const staticRoutes={
 // identity/availability from it in production. The API supplies live names.
 async function getProperties(){
   if(backend){
-    const timeout=AbortSignal.timeout(110000);
-    try {
-      const response=await fetch(`${backend}/api/site/properties-with-availability`,{signal:timeout,headers:{accept:'application/json'}});
-      if(!response.ok) throw Error(`HTTP ${response.status}`);
-      const result=await response.json();
-      if(result.success===false || !Array.isArray(result.data)) throw Error('Unexpected API property response');
-      console.log(`[SEO] Fetched ${result.data.length} live properties for prerendering.`);
-      return result.data;
-    } catch(error){if(production) throw Error(`Production SEO generation refused stale property data: ${error.message}`); console.warn(`[SEO] Live API unavailable: ${error.message}. Using preview labels only.`);}
+    // A live API may temporarily return 429 during cold starts or edge throttling.
+    // Retry only transient statuses; never quietly substitute registry data in production.
+    const sleep=(ms)=>new Promise(resolve=>setTimeout(resolve,ms));
+    const transientStatuses=new Set([429,500,502,503,504]);
+    const maxAttempts=5;
+    let lastError;
+    for(let attempt=1;attempt<=maxAttempts;attempt++){
+      try {
+        const response=await fetch(`${backend}/api/site/properties-with-availability`,{
+          signal:AbortSignal.timeout(30000),
+          headers:{accept:'application/json'},
+        });
+        if(!response.ok){
+          const status=response.status;
+          if(transientStatuses.has(status) && attempt<maxAttempts){
+            const retryAfter=response.headers.get('retry-after');
+            let delay=2000*2**(attempt-1);
+            if(retryAfter){
+              const seconds=Number(retryAfter);
+              const parsed=Number.isFinite(seconds)?seconds*1000:Date.parse(retryAfter)-Date.now();
+              if(Number.isFinite(parsed) && parsed>0) delay=Math.max(delay,parsed);
+            }
+            delay=Math.min(delay,60000);
+            console.warn(`[SEO] Live property API returned HTTP ${status}; retry ${attempt}/${maxAttempts-1} in ${Math.ceil(delay/1000)}s.`);
+            await sleep(delay);
+            continue;
+          }
+          throw Error(`HTTP ${status} after ${attempt} attempt(s)`);
+        }
+        const result=await response.json();
+        if(result.success===false || !Array.isArray(result.data)) throw Error('Unexpected API property response');
+        console.log(`[SEO] Fetched ${result.data.length} live properties for prerendering.`);
+        return result.data;
+      }catch(error){
+        lastError=error;
+        // Never retry malformed responses or permanent HTTP errors.
+        if(!['AbortError','TimeoutError'].includes(error.name)) break;
+        if(attempt===maxAttempts) break;
+        const delay=2000*2**(attempt-1);
+        console.warn(`[SEO] Live property API timeout; retry ${attempt}/${maxAttempts-1} in ${delay/1000}s.`);
+        await sleep(delay);
+      }
+    }
+    if(production) throw Error(`Production SEO generation refused stale property data: ${lastError.message}`);
+    console.warn(`[SEO] Live API unavailable: ${lastError.message}. Using preview labels only.`);
   } else if(production){throw Error('Production requires AMANI_BACKEND_ORIGIN to fetch current property titles and locations.');}
   const registry=JSON.parse(await readFile(resolve(root,'property_gallery_registry.json'),'utf8'));
   console.warn('[SEO] PREVIEW ONLY: property labels from local registry; not guaranteed current Supabase titles.');
