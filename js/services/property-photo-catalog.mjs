@@ -44,7 +44,7 @@ export function useFolderDetailGallery(payload, index) {
 
 export function useFolderHeaderImages(header, index, property) {
   const photos = photosForProperty(index, property);
-  return photos === null ? header : { ...header, gallery: [], thumbnail: '', image: '', cover_image: '', carousel_images: photos.slice(0,12).map(p=>p.src) };
+  return photos === null ? header : { ...header, gallery: [], thumbnail: '', image: '', cover_image: '', carousel_images: photos.map(p=>p.src) };
 }
 
 export async function loadFolderPhotoIndex() {

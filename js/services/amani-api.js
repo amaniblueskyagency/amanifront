@@ -169,11 +169,18 @@ export async function fetchPropertyHead(slugOrId) {
   const data = await fetchSiteApi(`/properties/${value}/head`);
   const property = {id:data.property_id || data.property?.id, title:data.title || data.property?.title || ''};
   const gallery = await publicGalleryFor(property);
+  // The numbered-folder manifest is the single source for every header photo slot.
+  // The header renderer reads `gallery` before `carousel_images`, so override BOTH.
+  // Keep backend photos only for non-numbered (legacy) properties.
+  const managed = gallery !== null;
+  const first = managed ? (gallery[0]?.src || '') : null;
   return {
     ...data,
-    carousel_images: gallery === null
-      ? (data.carousel_images || []).map(path => normalizeImagePath(path, data.property_id))
-      : gallery.map(photo=>photo.src)
+    gallery: managed ? gallery : data.gallery,
+    carousel_images: managed
+      ? gallery.map(photo => photo.src)
+      : (data.carousel_images || []).map(path => normalizeImagePath(path, data.property_id)),
+    ...(managed ? {thumbnail: first, image: first, cover_image: first} : {})
   };
 }
 
